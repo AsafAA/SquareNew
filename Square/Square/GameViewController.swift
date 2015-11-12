@@ -14,45 +14,64 @@ class ViewController: UIViewController {
     var viewWidth: CGFloat = 0.0
     var viewHeight: CGFloat = 0.0
     var squareWidth: CGFloat = 0.0
+    var lineWidth: CGFloat = 0.0
     var squareX: CGFloat = 0.0
     var maxY: CGFloat = 0.0
     var minY: CGFloat = 0.0
     var timer: NSTimer = NSTimer()
     var lines: [UIView] = []
+    var gameRunning: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         viewWidth = self.view.frame.width
         viewHeight = self.view.frame.height
         squareWidth = self.view.frame.height / 30
+        lineWidth = squareWidth
         maxY = viewHeight - squareWidth/2
         minY = squareWidth / 2
         squareX = viewWidth * 0.15
         // Do any additional setup after loading the view, typically from a nib.
+        startGame()
+        
+    }
+    
+    //==============================
+    // MARK: - Game States
+    
+    func startGame() {
+        gameRunning = true
         initSquare()
+        startLines()
+    }
+    
+    func stopGame() {
+        gameRunning = false
+        square.removeFromSuperview()
         
-        start()
+        for line in lines {
+            line.removeFromSuperview()
+        }
         
+        lines.removeAll()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    func initSquare() {
-        square = UIView(frame: CGRect(x: 0, y: 0, width: squareWidth, height: squareWidth))
-        square.backgroundColor = UIColor.blackColor()
-        square.center = CGPointMake(viewWidth * 0.15, maxY)
-        self.view.addSubview(square)
+    func startLines() {
+        if !gameRunning {
+            return
+        }
         
-        NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "checkState", userInfo: nil, repeats: true)
+        initLine(CGFloat(Int(arc4random_uniform(UInt32(viewHeight - 100))) + 50), gapHeight: 100)
+        
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "startLines", userInfo: nil, repeats: false)
     }
     
     func checkState() {
         if collision() {
             square.backgroundColor = UIColor.redColor()
             print("COLLISION")
+//            stopGame()
         } else {
             square.backgroundColor = UIColor.blackColor()
         }
@@ -81,6 +100,9 @@ class ViewController: UIViewController {
         return false
     }
     
+    //==============================
+    // MARK: - Touch Callbacks
+    
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let touch = touches.first where traitCollection.forceTouchCapability == .Available {
             let ratio = touch.force/touch.maximumPossibleForce
@@ -88,19 +110,28 @@ class ViewController: UIViewController {
         }
     }
     
-    
-    
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         square.center = CGPointMake(squareX, maxY)
+    }
+    
+    //==============================
+    // MARK: - Game Object initializers
+    
+    func initSquare() {
+        square = UIView(frame: CGRect(x: 0, y: 0, width: squareWidth, height: squareWidth))
+        square.backgroundColor = UIColor.blackColor()
+        square.center = CGPointMake(viewWidth * 0.15, maxY)
+        self.view.addSubview(square)
         
+        NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "checkState", userInfo: nil, repeats: true)
     }
     
     func initLine(gapY: CGFloat, gapHeight: CGFloat) {
         let lineTopHeight = gapY - gapHeight/2
         let lineBottomHeight = viewHeight - (gapY + gapHeight/2)
         
-        let lineTop = UIView(frame: CGRect(x: viewWidth, y: 0, width: squareWidth, height: lineTopHeight))
-        let lineBottom = UIView(frame: CGRect(x: viewWidth, y: gapY + gapHeight/2, width: squareWidth, height: lineBottomHeight ))
+        let lineTop = UIView(frame: CGRect(x: viewWidth, y: 0, width: lineWidth, height: lineTopHeight))
+        let lineBottom = UIView(frame: CGRect(x: viewWidth, y: gapY + gapHeight/2, width: lineWidth, height: lineBottomHeight ))
         lineTop.backgroundColor = UIColor.blackColor()
         lineBottom.backgroundColor = UIColor.blackColor()
         self.view.addSubview(lineTop)
@@ -109,21 +140,51 @@ class ViewController: UIViewController {
         self.lines.append(lineBottom)
         
         UIView.animateWithDuration(2.0, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
-                lineTop.frame = CGRectMake(0 - self.squareWidth, 0, self.squareWidth, lineTopHeight)
-                lineBottom.frame = CGRectMake(0 - self.squareWidth, gapY + gapHeight/2, self.squareWidth, lineBottomHeight)
+            lineTop.frame = CGRectMake(0 - self.lineWidth, 0, self.lineWidth, lineTopHeight)
+            lineBottom.frame = CGRectMake(0 - self.lineWidth, gapY + gapHeight/2, self.lineWidth, lineBottomHeight)
             }, completion: { finished in
                 lineTop.removeFromSuperview()
                 lineBottom.removeFromSuperview()
-                self.lines.removeFirst()
-                self.lines.removeFirst()
+                
+                // Lines may have been removed by stopGame()
+                if !self.lines.isEmpty {
+                    self.lines.removeFirst()
+                }
+                if !self.lines.isEmpty {
+                    self.lines.removeFirst()
+                }
             }
         )
     }
     
-    func start() {
-        initLine(CGFloat(Int(arc4random_uniform(UInt32(viewHeight - 100))) + 50), gapHeight: 100)
-        
-        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "start", userInfo: nil, repeats: false)
+    //==============================
+    // MARK: - Levels
+    
+    let LEVELS = [
+        [
+            "background_color": "x",
+            "num_lines": "x",
+            "line_width": "x",
+            "line_duration": "x",
+            "min_gap_y": "x",
+            "max_gap_y": "x",
+            "line_colors": [
+                "x",
+                "x"
+            ]
+        ]
+    ]
+    
+    //==============================
+    // MARK: - Misc
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
 }
 

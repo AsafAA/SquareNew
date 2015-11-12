@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		E810636F1BF1CEC1006B746B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E810636E1BF1CEC1006B746B /* AppDelegate.swift */; };
-		E81063711BF1CEC1006B746B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81063701BF1CEC1006B746B /* ViewController.swift */; };
+		E81063711BF1CEC1006B746B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81063701BF1CEC1006B746B /* GameViewController.swift */; };
 		E81063741BF1CEC1006B746B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E81063721BF1CEC1006B746B /* Main.storyboard */; };
 		E81063761BF1CEC1006B746B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E81063751BF1CEC1006B746B /* Assets.xcassets */; };
 		E81063791BF1CEC1006B746B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E81063771BF1CEC1006B746B /* LaunchScreen.storyboard */; };
+		E81063811BF46D65006B746B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81063801BF46D65006B746B /* MenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E810636B1BF1CEC1006B746B /* Square.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Square.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E810636E1BF1CEC1006B746B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E81063701BF1CEC1006B746B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E81063701BF1CEC1006B746B /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		E81063731BF1CEC1006B746B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E81063751BF1CEC1006B746B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E81063781BF1CEC1006B746B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E810637A1BF1CEC1006B746B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E81063801BF46D65006B746B /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +57,12 @@
 			isa = PBXGroup;
 			children = (
 				E810636E1BF1CEC1006B746B /* AppDelegate.swift */,
-				E81063701BF1CEC1006B746B /* ViewController.swift */,
+				E81063701BF1CEC1006B746B /* GameViewController.swift */,
 				E81063721BF1CEC1006B746B /* Main.storyboard */,
 				E81063751BF1CEC1006B746B /* Assets.xcassets */,
 				E81063771BF1CEC1006B746B /* LaunchScreen.storyboard */,
 				E810637A1BF1CEC1006B746B /* Info.plist */,
+				E81063801BF46D65006B746B /* MenuViewController.swift */,
 			);
 			path = Square;
 			sourceTree = "<group>";
@@ -135,7 +138,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E81063711BF1CEC1006B746B /* ViewController.swift in Sources */,
+				E81063711BF1CEC1006B746B /* GameViewController.swift in Sources */,
+				E81063811BF46D65006B746B /* MenuViewController.swift in Sources */,
 				E810636F1BF1CEC1006B746B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,6 +288,7 @@
 				E810637F1BF1CEC1006B746B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
