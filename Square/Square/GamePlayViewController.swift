@@ -60,11 +60,15 @@ class GamePlayViewController: UIViewController {
         if gameRunning {
             return
         }
+        
         linesPassed = 0
         scoreLabel.text = String(linesPassed)
         gameRunning = true
         initSquare()
-        startLines()
+        if gameMode != "training" {
+            
+            startLines()
+        }
     }
     
     func stopGame() {
@@ -83,15 +87,14 @@ class GamePlayViewController: UIViewController {
             return
         }
         
-        initLine(CGFloat(Int(arc4random_uniform(UInt32(viewHeight - 100))) + 50), gapHeight: viewHeight * CGFloat(gapHeightMultiplier()))
+        let gapHeight = viewHeight * CGFloat(gapHeightMultiplier())
+        initLine(CGFloat(Int(arc4random_uniform(UInt32(viewHeight - gapHeight * 1.5))) + Int(gapHeight * 0.75)), gapHeight: gapHeight)
         
         NSTimer.scheduledTimerWithTimeInterval(lineGapTime(), target: self, selector: "startLines", userInfo: nil, repeats: false)
     }
     
     func checkState() {
         if collision() {
-            square.backgroundColor = UIColor.redColor()
-            print("COLLISION")
             stopGame()
             square.frame = CGRectMake(0, 0, viewWidth, viewHeight)
             dismissViewControllerAnimated(false, completion: nil)
@@ -130,11 +133,19 @@ class GamePlayViewController: UIViewController {
         if let touch = touches.first where traitCollection.forceTouchCapability == .Available {
             let ratio = touch.force/touch.maximumPossibleForce
             square.center = CGPointMake(squareX, maxY - ratio*(maxY - minY))
+            
+            if gameMode == "training" {
+                scoreLabel.text = String(ratio)
+            }
         }
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         square.center = CGPointMake(squareX, maxY)
+        
+        if gameMode == "training" {
+            scoreLabel.text = "0"
+        }
     }
     
     //==============================
@@ -143,7 +154,7 @@ class GamePlayViewController: UIViewController {
     func initSquare() {
         square = UIView(frame: CGRect(x: 0, y: 0, width: squareWidth, height: squareWidth))
         square.backgroundColor = UIColor.blackColor()
-        square.center = CGPointMake(viewWidth * 0.15, maxY)
+        square.center = CGPointMake(squareX, maxY)
         self.view.addSubview(square)
         
         NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "checkState", userInfo: nil, repeats: true)
@@ -155,8 +166,8 @@ class GamePlayViewController: UIViewController {
         
         let lineTop = UIView(frame: CGRect(x: viewWidth, y: 0, width: lineWidth, height: lineTopHeight))
         let lineBottom = UIView(frame: CGRect(x: viewWidth, y: gapY + gapHeight/2, width: lineWidth, height: lineBottomHeight ))
-        lineTop.backgroundColor = UIColor.blackColor()
-        lineBottom.backgroundColor = UIColor.blackColor()
+        lineTop.backgroundColor = getLineColor()
+        lineBottom.backgroundColor = getLineColor()
         self.view.addSubview(lineTop)
         self.lines.append(lineTop)
         self.view.addSubview(lineBottom)
@@ -206,40 +217,32 @@ class GamePlayViewController: UIViewController {
             "lineGapTime": 1.5
         ],
         "medium": [
-            "lineTime" : 2.0,
+            "lineTime" : 2.8,
             "gapHeightMultiplier" : 0.15,
-            "lineGapTime": 1.0
+            "lineGapTime": 1.3
         ],
         "hard" : [
-            "lineTime" : 1.0,
+            "lineTime" : 2.5,
             "gapHeightMultiplier" : 0.12,
-            "lineGapTime": 0.75
+            "lineGapTime": 0.9
         ],
         "insane" : [
-            "lineTime" : 1.0,
+            "lineTime" : 2.5,
             "gapHeightMultiplier" : 0.075,
-            "lineGapTime": 0.5
+            "lineGapTime": 0.75
         ]
     ]
     
     
     let LEVELS = [
         [
-//            "background_color": "x",
-//            "num_lines": "x",
-//            "line_width": "x",
-//            "line_duration": "x",
-//            "min_gap_y": "x",
-//            "max_gap_y": "x",
-//            "line_colors": [
-//                "x",
-//                "x"
-//            ]
+            "background_color": "000000",
+            "line_colors": [
+                "cccccc",
+                "eeeeee",
+                "000000"
+            ]
         ]
-    ]
-    
-    let LEVEL_COUNTS = [
-        30
     ]
     
     //==============================
@@ -252,6 +255,40 @@ class GamePlayViewController: UIViewController {
     
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    func getLineColor() -> UIColor {
+        let levelNumber = self.lineNumber / 5
+        let levelIndex = levelNumber % LEVELS.count
+        let lineNumberInLevel = self.lineNumber % 5
+        let lineColors = LEVELS[levelIndex]["line_colors"]
+        let lineColorIndex = lineNumberInLevel % (lineColors?.count)!
+        let lineColorHex = lineColors![lineColorIndex]
+        return colorWithHexString(lineColorHex as! String)
+    }
+    
+    func colorWithHexString (hex:String) -> UIColor {
+        var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).uppercaseString
+        
+        if (cString.hasPrefix("#")) {
+            cString = (cString as NSString).substringFromIndex(1)
+        }
+        
+        if (cString.characters.count != 6) {
+            return UIColor.grayColor()
+        }
+        
+        let rString = (cString as NSString).substringToIndex(2)
+        let gString = ((cString as NSString).substringFromIndex(2) as NSString).substringToIndex(2)
+        let bString = ((cString as NSString).substringFromIndex(4) as NSString).substringToIndex(2)
+        
+        var r:CUnsignedInt = 0, g:CUnsignedInt = 0, b:CUnsignedInt = 0;
+        NSScanner(string: rString).scanHexInt(&r)
+        NSScanner(string: gString).scanHexInt(&g)
+        NSScanner(string: bString).scanHexInt(&b)
+        
+        
+        return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
     }
 }
 

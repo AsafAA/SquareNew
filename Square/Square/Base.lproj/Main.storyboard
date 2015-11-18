@@ -94,14 +94,14 @@
                                 <rect key="frame" x="283" y="205" width="33" height="30"/>
                                 <state key="normal" title="Easy"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="easy" id="QuY-E2-dFA"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="easy" animates="NO" id="QuY-E2-dFA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jme-x4-OpX" userLabel="MediumButton">
                                 <rect key="frame" x="272.5" y="245" width="55" height="30"/>
                                 <state key="normal" title="Medium"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="medium" id="Bqw-qz-5oo"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="medium" animates="NO" id="Bqw-qz-5oo"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ali-Ow-YkZ" userLabel="HardButton">
@@ -115,14 +115,14 @@
                                 <rect key="frame" x="277.5" y="325" width="45" height="30"/>
                                 <state key="normal" title="Insane"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="insane" id="JGf-pu-dl0"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="insane" animates="NO" id="JGf-pu-dl0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLE-DB-34V" userLabel="TrainingButton">
                                 <rect key="frame" x="273" y="365" width="55" height="30"/>
                                 <state key="normal" title="Training"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="training" id="4Nl-Ml-yqX"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="training" animates="NO" id="4Nl-Ml-yqX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -147,6 +147,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="QuY-E2-dFA"/>
+        <segue reference="4Nl-Ml-yqX"/>
     </inferredMetricsTieBreakers>
 </document>
