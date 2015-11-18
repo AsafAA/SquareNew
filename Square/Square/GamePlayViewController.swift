@@ -27,6 +27,7 @@ class GamePlayViewController: UIViewController {
     var linesPassed: Int = 0
     var lineNumber: Int = 0
     var gameMode: String! = ""
+    let linesPerLevel: Int = 16
     
     
     override func viewDidLayoutSubviews() {
@@ -38,6 +39,7 @@ class GamePlayViewController: UIViewController {
         maxY = viewHeight - squareWidth/2
         minY = squareWidth / 2
         squareX = viewWidth * 0.15
+        scoreLabel.layer.zPosition = 1
         // Do any additional setup after loading the view, typically from a nib.
         
         startGame()
@@ -173,6 +175,11 @@ class GamePlayViewController: UIViewController {
         self.view.addSubview(lineBottom)
         self.lines.append(lineBottom)
         
+        UIView.animateWithDuration(0.5, animations: {
+            self.view.backgroundColor = self.getBackgroundColor()
+
+            }, completion: nil)
+        
         self.lineNumber += 1
         
         UIView.animateWithDuration(lineTime(), delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
@@ -236,13 +243,51 @@ class GamePlayViewController: UIViewController {
     
     let LEVELS = [
         [
-            "background_color": "000000",
+            "background_color": "FEF6EB",
+            "line_colors": [
+                "525564",
+                "96C0CE",
+                "BEB9B5",
+                "C25B56"
+            ]
+        ],
+        [
+            "background_color": "F8DEBD",
+            "line_colors": [
+                "6F3662",
+                "FF7182",
+                "FFAE5D",
+                "9F6164"
+            ]
+        ],
+        [
+            "background_color": "aaaaaa",
             "line_colors": [
                 "cccccc",
-                "eeeeee",
-                "000000"
+                "ffffff",
+                "333333",
+                "777777"
+            ]
+        ],
+        [
+            "background_color": "8ED2C9",
+            "line_colors": [
+                "FF7A5A",
+                "00AAA0",
+                "FFB85F",
+                "462066"
+            ]
+        ],
+        [
+            "background_color": "9FBF8C",
+            "line_colors": [
+                "C8AB65",
+                "787A40",
+                "F69A98",
+                "FFFFFF"
             ]
         ]
+        
     ]
     
     //==============================
@@ -258,13 +303,20 @@ class GamePlayViewController: UIViewController {
     }
     
     func getLineColor() -> UIColor {
-        let levelNumber = self.lineNumber / 5
+        let levelNumber = self.lineNumber / linesPerLevel
         let levelIndex = levelNumber % LEVELS.count
-        let lineNumberInLevel = self.lineNumber % 5
+        let lineNumberInLevel = self.lineNumber % linesPerLevel
         let lineColors = LEVELS[levelIndex]["line_colors"]
         let lineColorIndex = lineNumberInLevel % (lineColors?.count)!
         let lineColorHex = lineColors![lineColorIndex]
         return colorWithHexString(lineColorHex as! String)
+    }
+    
+    func getBackgroundColor() -> UIColor {
+        let levelNumber = self.lineNumber / linesPerLevel
+        let levelIndex = levelNumber % LEVELS.count
+        let backgroundColorHex = LEVELS[levelIndex]["background_color"]
+        return colorWithHexString(backgroundColorHex as! String)
     }
     
     func colorWithHexString (hex:String) -> UIColor {
