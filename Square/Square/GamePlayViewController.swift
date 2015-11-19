@@ -29,6 +29,7 @@ class GamePlayViewController: UIViewController {
     var gameMode: String! = ""
     let linesPerLevel: Int = 16
     var randomLevelOffset: Int = 0
+    @IBOutlet var exitButton: UIButton!
     
     
     override func viewDidLayoutSubviews() {
@@ -41,6 +42,9 @@ class GamePlayViewController: UIViewController {
         minY = squareWidth / 2
         squareX = viewWidth * 0.15
         scoreLabel.layer.zPosition = 1
+        exitButton.layer.zPosition = 1
+        
+        exitButton.hidden = (gameMode != "training")
         
         // Do any additional setup after loading the view, typically from a nib.
         
@@ -303,6 +307,10 @@ class GamePlayViewController: UIViewController {
     
     //==============================
     // MARK: - Misc
+    
+    @IBAction func exitGame(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
