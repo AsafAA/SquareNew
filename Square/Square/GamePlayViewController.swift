@@ -70,10 +70,7 @@ class GamePlayViewController: UIViewController {
         scoreLabel.text = String(linesPassed)
         gameRunning = true
         initSquare()
-        if gameMode != "training" {
-            
-            startLines()
-        }
+        startLines()
     }
     
     func stopGame() {
@@ -93,13 +90,14 @@ class GamePlayViewController: UIViewController {
         }
         
         let gapHeight = viewHeight * CGFloat(gapHeightMultiplier())
+        
         initLine(CGFloat(Int(arc4random_uniform(UInt32(viewHeight - gapHeight * 1.5))) + Int(gapHeight * 0.75)), gapHeight: gapHeight)
         
         NSTimer.scheduledTimerWithTimeInterval(lineGapTime(), target: self, selector: "startLines", userInfo: nil, repeats: false)
     }
     
     func checkState() {
-        if collision() {
+        if gameMode != "training" && collision() {
 //            UIView.animateWithDuration(1.0, animations: {
 //                    self.square.center = CGPointMake(self.squareX, self.maxY)
 //                }, completion: nil)
@@ -160,6 +158,7 @@ class GamePlayViewController: UIViewController {
         square = UIView(frame: CGRect(x: 0, y: 0, width: squareWidth, height: squareWidth))
         square.backgroundColor = UIColor.blackColor()
         square.center = CGPointMake(squareX, maxY)
+        square.layer.zPosition = 1
         self.view.addSubview(square)
         
         NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "checkState", userInfo: nil, repeats: true)
@@ -190,7 +189,11 @@ class GamePlayViewController: UIViewController {
             lineBottom.frame = CGRectMake(0 - self.lineWidth, gapY + gapHeight/2, self.lineWidth, lineBottomHeight)
             }, completion: { finished in
                 self.linesPassed += 1
-                self.scoreLabel.text = String(self.linesPassed)
+                
+                if self.gameMode != "training" {
+                    self.scoreLabel.text = String(self.linesPassed)
+                }
+                
                 lineTop.removeFromSuperview()
                 lineBottom.removeFromSuperview()
                 
@@ -239,6 +242,11 @@ class GamePlayViewController: UIViewController {
         "insane" : [
             "lineTime" : 2.5,
             "gapHeightMultiplier" : 0.075,
+            "lineGapTime": 0.75
+        ],
+        "training" : [
+            "lineTime" : 2.5,
+            "gapHeightMultiplier" : 0.0,
             "lineGapTime": 0.75
         ]
     ]
