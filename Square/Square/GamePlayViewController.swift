@@ -28,6 +28,7 @@ class GamePlayViewController: UIViewController {
     var lineNumber: Int = 0
     var gameMode: String! = ""
     let linesPerLevel: Int = 16
+    var randomLevelOffset: Int = 0
     
     
     override func viewDidLayoutSubviews() {
@@ -40,6 +41,7 @@ class GamePlayViewController: UIViewController {
         minY = squareWidth / 2
         squareX = viewWidth * 0.15
         scoreLabel.layer.zPosition = 1
+        
         // Do any additional setup after loading the view, typically from a nib.
         
         startGame()
@@ -50,6 +52,7 @@ class GamePlayViewController: UIViewController {
     override func viewDidLoad() {
         print( "VIEW DID LOAD" )
         super.viewDidLoad()
+        randomLevelOffset = Int(arc4random_uniform(UInt32(LEVELS.count)))
         print(gameMode)
         print(MODES)
         
@@ -97,11 +100,11 @@ class GamePlayViewController: UIViewController {
     
     func checkState() {
         if collision() {
+//            UIView.animateWithDuration(1.0, animations: {
+//                    self.square.center = CGPointMake(self.squareX, self.maxY)
+//                }, completion: nil)
             stopGame()
-            square.frame = CGRectMake(0, 0, viewWidth, viewHeight)
             dismissViewControllerAnimated(false, completion: nil)
-        } else {
-            square.backgroundColor = UIColor.blackColor()
         }
     }
     
@@ -225,7 +228,7 @@ class GamePlayViewController: UIViewController {
         ],
         "medium": [
             "lineTime" : 2.8,
-            "gapHeightMultiplier" : 0.15,
+            "gapHeightMultiplier" : 0.19,
             "lineGapTime": 1.3
         ],
         "hard" : [
@@ -303,7 +306,7 @@ class GamePlayViewController: UIViewController {
     }
     
     func getLineColor() -> UIColor {
-        let levelNumber = self.lineNumber / linesPerLevel
+        let levelNumber = self.lineNumber / linesPerLevel + randomLevelOffset
         let levelIndex = levelNumber % LEVELS.count
         let lineNumberInLevel = self.lineNumber % linesPerLevel
         let lineColors = LEVELS[levelIndex]["line_colors"]
@@ -313,7 +316,7 @@ class GamePlayViewController: UIViewController {
     }
     
     func getBackgroundColor() -> UIColor {
-        let levelNumber = self.lineNumber / linesPerLevel
+        let levelNumber = self.lineNumber / linesPerLevel + randomLevelOffset
         let levelIndex = levelNumber % LEVELS.count
         let backgroundColorHex = LEVELS[levelIndex]["background_color"]
         return colorWithHexString(backgroundColorHex as! String)
