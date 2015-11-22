@@ -31,9 +31,17 @@ class GamePlayViewController: UIViewController {
     var randomLevelOffset: Int = 0
     @IBOutlet var exitButton: UIButton!
     var tick: Double = 0.0
+    var finalScore = 0
+    let defaults = NSUserDefaults(suiteName: "group.io.asaf.square")!
 
+    @IBOutlet var gameOverView: UIView!
+    @IBOutlet var finalScoreLabel: UILabel!
+    @IBOutlet var bestScoreLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("DEFAULTS")
+        print(defaults)
         
         viewWidth = self.view.frame.width
         viewHeight = self.view.frame.height
@@ -44,8 +52,10 @@ class GamePlayViewController: UIViewController {
         squareX = viewWidth * 0.15
         scoreLabel.layer.zPosition = 1
         exitButton.layer.zPosition = 1
-        
+        gameOverView.layer.zPosition = 1
+        gameOverView.layer.cornerRadius = 10.0
         exitButton.hidden = (gameMode != "training")
+        
         startGame()
     }
     
@@ -54,12 +64,44 @@ class GamePlayViewController: UIViewController {
     
     func startGame() {
         randomLevelOffset = Int(arc4random_uniform(UInt32(LEVELS.count)))
+        gameOverView.hidden = true
         tick = 0
         linesPassed = 0
         lineNumber = 0
         scoreLabel.text = String("0")
+        scoreLabel.hidden = false
+        finalScore = 0
         initSquare()
         startGameLoop()
+    }
+    
+    func presentGameOverView() {
+        finalScore = linesPassed
+        var bestScore = 0
+        defaults.synchronize()
+        
+        if let score = defaults.integerForKey(bestScoreKey()) as? Int {
+            bestScore = score
+        }
+        
+        if finalScore > bestScore {
+            bestScore = finalScore
+            defaults.setInteger(finalScore, forKey: bestScoreKey())
+        }
+        defaults.synchronize()
+        
+        print("FINAL SCORE")
+        print(finalScore)
+        print("BEST SCORE")
+        print(bestScore)
+        
+        scoreLabel.hidden = true
+        square.hidden = true
+        finalScoreLabel.text = String(finalScore)
+        bestScoreLabel.text = String(bestScore)
+        
+        
+        gameOverView.hidden = false
     }
     
     func startGameLoop() {
@@ -104,8 +146,8 @@ class GamePlayViewController: UIViewController {
             let firstLineBottom = lines[1]
             
             if firstLineTop.center.x < 0 - squareWidth / 2 {
-                print("NUM LINES")
-                print(lines.count)
+//                print("NUM LINES")
+//                print(lines.count)
                 
                 lines.removeFirst()
                 lines.removeFirst()
@@ -128,14 +170,19 @@ class GamePlayViewController: UIViewController {
         
         if gameMode != "training" && collision() {
    
-        stopGame()
-            
-        dismissViewControllerAnimated(false, completion: nil)
+//        stopGame()
+//            
+//        dismissViewControllerAnimated(false, completion: nil)
 //            replayPressed()
+            presentGameOverView()
+            
         }
     }
     
     func collision() -> Bool {
+        if !gameOverView.hidden {
+            return false
+        }
         for line in self.lines {
             if collide(square, view2: line) {
                 return true
@@ -192,10 +239,11 @@ class GamePlayViewController: UIViewController {
     }
     
     func initLine(gapY: CGFloat, gapHeight: CGFloat) {
-        print("INIT LINE")
-        print(lineNumber)
-        print("LINES PASSED")
-        print(linesPassed)
+//        print(bestScoreKey())
+//        print("INIT LINE")
+//        print(lineNumber)
+//        print("LINES PASSED")
+//        print(linesPassed)
         if true {
             self.linesPassed == 0
             self.scoreLabel.text = String(linesPassed)
@@ -213,10 +261,14 @@ class GamePlayViewController: UIViewController {
         self.view.addSubview(lineBottom)
         self.lines.append(lineBottom)
         
-        UIView.animateWithDuration(0.5, animations: {
+        if lineNumber == 0 {
             self.view.backgroundColor = self.getBackgroundColor()
+        } else if lineNumber % linesPerLevel == 0 {
+            UIView.animateWithDuration(0.5, animations: {
+                self.view.backgroundColor = self.getBackgroundColor()
 
             }, completion: nil)
+        }
         
         self.lineNumber += 1
     }
@@ -317,11 +369,21 @@ class GamePlayViewController: UIViewController {
     //==============================
     // MARK: - Misc
     
-    func replayPressed() {
+    func bestScoreKey() -> String {
+        return "bestScore" + gameMode.capitalizedString
+    }
+    
+    @IBAction func replayPressed(sender: AnyObject) {
         stopGame()
         startGame()
     }
+    @IBAction func menuPressed(sender: AnyObject) {
+        stopGame()
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     
+    @IBAction func facebookPressed(sender: AnyObject) {
+    }
     @IBAction func exitGame(sender: AnyObject) {
         dispatch_async(dispatch_get_main_queue(),{
             self.timer.invalidate()
