@@ -103,7 +103,7 @@ class GamePlayViewController: UIViewController {
             let firstLineTop = lines[0]
             let firstLineBottom = lines[1]
             
-            if firstLineTop.center.x < 0 {
+            if firstLineTop.center.x < 0 - squareWidth / 2 {
                 print("NUM LINES")
                 print(lines.count)
                 
