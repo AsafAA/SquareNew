@@ -31,37 +31,10 @@ class GamePlayViewController: UIViewController {
     var randomLevelOffset: Int = 0
     @IBOutlet var exitButton: UIButton!
     var tick: Double = 0.0
-    
-    
-//    override func viewDidLayoutSubviews() {
-//        print("VIEW DID LAYOUT SUBVIEWS")
-//        viewWidth = self.view.frame.width
-//        viewHeight = self.view.frame.height
-//        squareWidth = self.view.frame.height / 30
-//        lineWidth = squareWidth
-//        maxY = viewHeight - squareWidth/2
-//        minY = squareWidth / 2
-//        squareX = viewWidth * 0.15
-//        scoreLabel.layer.zPosition = 1
-//        exitButton.layer.zPosition = 1
-//        
-//        exitButton.hidden = (gameMode != "training")
-//        
-//        // Do any additional setup after loading the view, typically from a nib.
-//        
-//        
-//    }
-    
-    
 
     override func viewDidLoad() {
-        print( "VIEW DID LOAD" )
         super.viewDidLoad()
-        randomLevelOffset = Int(arc4random_uniform(UInt32(LEVELS.count)))
-        print(gameMode)
-        print(MODES)
         
-        print("VIEW DID LAYOUT SUBVIEWS")
         viewWidth = self.view.frame.width
         viewHeight = self.view.frame.height
         squareWidth = self.view.frame.height / 30
@@ -80,7 +53,8 @@ class GamePlayViewController: UIViewController {
     // MARK: - Game States
     
     func startGame() {
-        
+        randomLevelOffset = Int(arc4random_uniform(UInt32(LEVELS.count)))
+        tick = 0
         linesPassed = 0
         lineNumber = 0
         scoreLabel.text = String("0")
@@ -89,11 +63,10 @@ class GamePlayViewController: UIViewController {
     }
     
     func startGameLoop() {
-        
-//        initGapLine()
+        initGapLine()
         
         dispatch_async(dispatch_get_main_queue(),{
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "checkState", userInfo: nil, repeats: true)
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "checkState", userInfo: nil, repeats: true)
         })
     }
     
@@ -101,7 +74,6 @@ class GamePlayViewController: UIViewController {
         print("STOP GAME")
         dispatch_async(dispatch_get_main_queue(),{
             self.timer.invalidate()
-            //                self.lineTimer.invalidate()
         })
         
         square.removeFromSuperview()
@@ -120,21 +92,45 @@ class GamePlayViewController: UIViewController {
     }
     
     func checkState() {
+        let x_distance = viewWidth + squareWidth
+        let x_delta = x_distance / (60 * CGFloat(lineTime()))
+        for line in lines {
+            line.center = CGPointMake(line.center.x - x_delta, line.center.y)
+        }
+        
+        if lines.count > 1 {
+            
+            let firstLineTop = lines[0]
+            let firstLineBottom = lines[1]
+            
+            if firstLineTop.center.x < 0 {
+                print("NUM LINES")
+                print(lines.count)
+                
+                lines.removeFirst()
+                lines.removeFirst()
+                firstLineTop.removeFromSuperview()
+                firstLineBottom.removeFromSuperview()
+                
+                if gameMode != "training" {
+                    linesPassed += 1
+                    scoreLabel.text = String(linesPassed)
+                }
+            }
+            
+            
+        }
+        
         tick += 1
-//        print(tick)
-//        print(tick % 200)
-        if tick % (lineGapTime() * 100) == 0 {
+        if tick % (lineGapTime() * 60) == 0 {
             initGapLine()
         }
-//        initGapLine()
+        
         if gameMode != "training" && collision() {
    
-////            UIView.animateWithDuration(1.0, animations: {
-////                    self.square.center = CGPointMake(self.squareX, self.maxY)
-////                }, completion: nil)
-            stopGame()
+        stopGame()
             
-            dismissViewControllerAnimated(false, completion: nil)
+        dismissViewControllerAnimated(false, completion: nil)
 //            replayPressed()
         }
     }
@@ -188,7 +184,6 @@ class GamePlayViewController: UIViewController {
     // MARK: - Game Object initializers
     
     func initSquare() {
-        print("INIT SQUARE")
         square = UIView(frame: CGRect(x: 0, y: 0, width: squareWidth, height: squareWidth))
         square.backgroundColor = UIColor.blackColor()
         square.center = CGPointMake(squareX, maxY)
@@ -224,30 +219,6 @@ class GamePlayViewController: UIViewController {
             }, completion: nil)
         
         self.lineNumber += 1
-        
-        UIView.animateWithDuration(lineTime(), delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
-            lineTop.frame = CGRectMake(0 - self.lineWidth, 0, self.lineWidth, lineTopHeight)
-            lineBottom.frame = CGRectMake(0 - self.lineWidth, gapY + gapHeight/2, self.lineWidth, lineBottomHeight)
-            }, completion: { finished in
-                print("COMPLETION")
-                self.linesPassed += 1
-                
-                if self.gameMode != "training" {
-                    self.scoreLabel.text = String(self.linesPassed)
-                }
-                
-                lineTop.removeFromSuperview()
-                lineBottom.removeFromSuperview()
-                
-                // Lines may have been removed by stopGame()
-                if !self.lines.isEmpty {
-                    self.lines.removeFirst()
-                }
-                if !self.lines.isEmpty {
-                    self.lines.removeFirst()
-                }
-            }
-        )
     }
     
     //==============================
@@ -352,7 +323,6 @@ class GamePlayViewController: UIViewController {
     }
     
     @IBAction func exitGame(sender: AnyObject) {
-        print("EXIT GAME")
         dispatch_async(dispatch_get_main_queue(),{
             self.timer.invalidate()
             //                self.lineTimer.invalidate()
