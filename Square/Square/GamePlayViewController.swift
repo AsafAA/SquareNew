@@ -21,8 +21,8 @@ class GamePlayViewController: UIViewController {
     var maxY: CGFloat = 0.0
     var minY: CGFloat = 0.0
     var timer: NSTimer = NSTimer()
+    var lineTimer: NSTimer = NSTimer()
     var lines: [UIView] = []
-    var gameRunning: Bool = false
     var currentLevel: Int = 0
     var linesPassed: Int = 0
     var lineNumber: Int = 0
@@ -30,9 +30,37 @@ class GamePlayViewController: UIViewController {
     let linesPerLevel: Int = 16
     var randomLevelOffset: Int = 0
     @IBOutlet var exitButton: UIButton!
+    var tick: Double = 0.0
     
     
-    override func viewDidLayoutSubviews() {
+//    override func viewDidLayoutSubviews() {
+//        print("VIEW DID LAYOUT SUBVIEWS")
+//        viewWidth = self.view.frame.width
+//        viewHeight = self.view.frame.height
+//        squareWidth = self.view.frame.height / 30
+//        lineWidth = squareWidth
+//        maxY = viewHeight - squareWidth/2
+//        minY = squareWidth / 2
+//        squareX = viewWidth * 0.15
+//        scoreLabel.layer.zPosition = 1
+//        exitButton.layer.zPosition = 1
+//        
+//        exitButton.hidden = (gameMode != "training")
+//        
+//        // Do any additional setup after loading the view, typically from a nib.
+//        
+//        
+//    }
+    
+    
+
+    override func viewDidLoad() {
+        print( "VIEW DID LOAD" )
+        super.viewDidLoad()
+        randomLevelOffset = Int(arc4random_uniform(UInt32(LEVELS.count)))
+        print(gameMode)
+        print(MODES)
+        
         print("VIEW DID LAYOUT SUBVIEWS")
         viewWidth = self.view.frame.width
         viewHeight = self.view.frame.height
@@ -45,68 +73,69 @@ class GamePlayViewController: UIViewController {
         exitButton.layer.zPosition = 1
         
         exitButton.hidden = (gameMode != "training")
-        
-        // Do any additional setup after loading the view, typically from a nib.
-        
         startGame()
-    }
-    
-    
-
-    override func viewDidLoad() {
-        print( "VIEW DID LOAD" )
-        super.viewDidLoad()
-        randomLevelOffset = Int(arc4random_uniform(UInt32(LEVELS.count)))
-        print(gameMode)
-        print(MODES)
-        
     }
     
     //==============================
     // MARK: - Game States
     
     func startGame() {
-        if gameRunning {
-            return
-        }
         
         linesPassed = 0
-        scoreLabel.text = String(linesPassed)
-        gameRunning = true
+        lineNumber = 0
+        scoreLabel.text = String("0")
         initSquare()
-        startLines()
+        startGameLoop()
+    }
+    
+    func startGameLoop() {
+        
+//        initGapLine()
+        
+        dispatch_async(dispatch_get_main_queue(),{
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "checkState", userInfo: nil, repeats: true)
+        })
     }
     
     func stopGame() {
-        gameRunning = false
-        square.removeFromSuperview()
+        print("STOP GAME")
+        dispatch_async(dispatch_get_main_queue(),{
+            self.timer.invalidate()
+            //                self.lineTimer.invalidate()
+        })
         
+        square.removeFromSuperview()
+        self.view.layer.removeAllAnimations()
         for line in lines {
             line.removeFromSuperview()
         }
         
         lines.removeAll()
     }
-
-    func startLines() {
-        if !gameRunning {
-            return
-        }
-        
+    
+    func initGapLine() {
         let gapHeight = viewHeight * CGFloat(gapHeightMultiplier())
         
         initLine(CGFloat(Int(arc4random_uniform(UInt32(viewHeight - gapHeight * 1.5))) + Int(gapHeight * 0.75)), gapHeight: gapHeight)
-        
-        NSTimer.scheduledTimerWithTimeInterval(lineGapTime(), target: self, selector: "startLines", userInfo: nil, repeats: false)
     }
     
     func checkState() {
+        tick += 1
+//        print(tick)
+//        print(tick % 200)
+        if tick % (lineGapTime() * 100) == 0 {
+            initGapLine()
+        }
+//        initGapLine()
         if gameMode != "training" && collision() {
-//            UIView.animateWithDuration(1.0, animations: {
-//                    self.square.center = CGPointMake(self.squareX, self.maxY)
-//                }, completion: nil)
+   
+////            UIView.animateWithDuration(1.0, animations: {
+////                    self.square.center = CGPointMake(self.squareX, self.maxY)
+////                }, completion: nil)
             stopGame()
+            
             dismissViewControllerAnimated(false, completion: nil)
+//            replayPressed()
         }
     }
     
@@ -159,16 +188,24 @@ class GamePlayViewController: UIViewController {
     // MARK: - Game Object initializers
     
     func initSquare() {
+        print("INIT SQUARE")
         square = UIView(frame: CGRect(x: 0, y: 0, width: squareWidth, height: squareWidth))
         square.backgroundColor = UIColor.blackColor()
         square.center = CGPointMake(squareX, maxY)
         square.layer.zPosition = 1
         self.view.addSubview(square)
-        
-        NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "checkState", userInfo: nil, repeats: true)
     }
     
     func initLine(gapY: CGFloat, gapHeight: CGFloat) {
+        print("INIT LINE")
+        print(lineNumber)
+        print("LINES PASSED")
+        print(linesPassed)
+        if true {
+            self.linesPassed == 0
+            self.scoreLabel.text = String(linesPassed)
+        }
+        print(linesPassed)
         let lineTopHeight = gapY - gapHeight/2
         let lineBottomHeight = viewHeight - (gapY + gapHeight/2)
         
@@ -192,6 +229,7 @@ class GamePlayViewController: UIViewController {
             lineTop.frame = CGRectMake(0 - self.lineWidth, 0, self.lineWidth, lineTopHeight)
             lineBottom.frame = CGRectMake(0 - self.lineWidth, gapY + gapHeight/2, self.lineWidth, lineBottomHeight)
             }, completion: { finished in
+                print("COMPLETION")
                 self.linesPassed += 1
                 
                 if self.gameMode != "training" {
@@ -308,8 +346,18 @@ class GamePlayViewController: UIViewController {
     //==============================
     // MARK: - Misc
     
+    func replayPressed() {
+        stopGame()
+        startGame()
+    }
+    
     @IBAction func exitGame(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        print("EXIT GAME")
+        dispatch_async(dispatch_get_main_queue(),{
+            self.timer.invalidate()
+            //                self.lineTimer.invalidate()
+        })
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
