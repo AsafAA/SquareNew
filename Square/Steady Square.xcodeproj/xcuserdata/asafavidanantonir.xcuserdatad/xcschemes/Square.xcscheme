@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E810636A1BF1CEC1006B746B"
-               BuildableName = "Square.app"
-               BlueprintName = "Square"
-               ReferencedContainer = "container:Square.xcodeproj">
+               BuildableName = "SteadySquare.app"
+               BlueprintName = "Steady Square"
+               ReferencedContainer = "container:Steady Square.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E810636A1BF1CEC1006B746B"
-            BuildableName = "Square.app"
-            BlueprintName = "Square"
-            ReferencedContainer = "container:Square.xcodeproj">
+            BuildableName = "SteadySquare.app"
+            BlueprintName = "Steady Square"
+            ReferencedContainer = "container:Steady Square.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E810636A1BF1CEC1006B746B"
-            BuildableName = "Square.app"
-            BlueprintName = "Square"
-            ReferencedContainer = "container:Square.xcodeproj">
+            BuildableName = "SteadySquare.app"
+            BlueprintName = "Steady Square"
+            ReferencedContainer = "container:Steady Square.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E810636A1BF1CEC1006B746B"
-            BuildableName = "Square.app"
-            BlueprintName = "Square"
-            ReferencedContainer = "container:Square.xcodeproj">
+            BuildableName = "SteadySquare.app"
+            BlueprintName = "Steady Square"
+            ReferencedContainer = "container:Steady Square.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

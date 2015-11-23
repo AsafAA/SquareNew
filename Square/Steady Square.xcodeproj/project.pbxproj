@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E810636B1BF1CEC1006B746B /* Square.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Square.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E810636B1BF1CEC1006B746B /* Steady Square.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Steady Square.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E810636E1BF1CEC1006B746B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E81063701BF1CEC1006B746B /* GamePlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayViewController.swift; sourceTree = "<group>"; };
 		E81063731BF1CEC1006B746B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		E810636C1BF1CEC1006B746B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E810636B1BF1CEC1006B746B /* Square.app */,
+				E810636B1BF1CEC1006B746B /* Steady Square.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -77,9 +77,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E810636A1BF1CEC1006B746B /* Square */ = {
+		E810636A1BF1CEC1006B746B /* Steady Square */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E810637D1BF1CEC1006B746B /* Build configuration list for PBXNativeTarget "Square" */;
+			buildConfigurationList = E810637D1BF1CEC1006B746B /* Build configuration list for PBXNativeTarget "Steady Square" */;
 			buildPhases = (
 				E81063671BF1CEC1006B746B /* Sources */,
 				E81063681BF1CEC1006B746B /* Frameworks */,
@@ -89,9 +89,9 @@
 			);
 			dependencies = (
 			);
-			name = Square;
+			name = "Steady Square";
 			productName = Square;
-			productReference = E810636B1BF1CEC1006B746B /* Square.app */;
+			productReference = E810636B1BF1CEC1006B746B /* Steady Square.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -110,7 +110,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E81063661BF1CEC1006B746B /* Build configuration list for PBXProject "Square" */;
+			buildConfigurationList = E81063661BF1CEC1006B746B /* Build configuration list for PBXProject "Steady Square" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -123,7 +123,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E810636A1BF1CEC1006B746B /* Square */,
+				E810636A1BF1CEC1006B746B /* Steady Square */,
 			);
 		};
 /* End PBXProject section */
@@ -264,7 +264,7 @@
 				INFOPLIST_FILE = Square/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asaf.Square;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Steady Square";
 			};
 			name = Debug;
 		};
@@ -276,14 +276,14 @@
 				INFOPLIST_FILE = Square/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asaf.Square;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Steady Square";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E81063661BF1CEC1006B746B /* Build configuration list for PBXProject "Square" */ = {
+		E81063661BF1CEC1006B746B /* Build configuration list for PBXProject "Steady Square" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E810637B1BF1CEC1006B746B /* Debug */,
@@ -292,7 +292,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E810637D1BF1CEC1006B746B /* Build configuration list for PBXNativeTarget "Square" */ = {
+		E810637D1BF1CEC1006B746B /* Build configuration list for PBXNativeTarget "Steady Square" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E810637E1BF1CEC1006B746B /* Debug */,
