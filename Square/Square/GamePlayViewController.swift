@@ -54,6 +54,9 @@ class GamePlayViewController: UIViewController {
         exitButton.layer.zPosition = 1
         gameOverView.layer.zPosition = 1
         gameOverView.layer.cornerRadius = 10.0
+        gameOverView.layer.shadowRadius = 2.0
+        gameOverView.layer.shadowOpacity = 0.2
+        gameOverView.layer.shadowOffset = CGSize(width: 1, height: 1)
         exitButton.hidden = (gameMode != "training")
         
         startGame()
@@ -99,7 +102,7 @@ class GamePlayViewController: UIViewController {
         square.hidden = true
         finalScoreLabel.text = String(finalScore)
         bestScoreLabel.text = String(bestScore)
-        
+        gameOverView.backgroundColor = getGameOverViewBackground()
         
         gameOverView.hidden = false
     }
@@ -320,6 +323,7 @@ class GamePlayViewController: UIViewController {
     let LEVELS = [
         [
             "background_color": "FEF6EB",
+            "game_over_background_color": "96C0CE",
             "line_colors": [
                 "525564",
                 "96C0CE",
@@ -329,6 +333,7 @@ class GamePlayViewController: UIViewController {
         ],
         [
             "background_color": "F8DEBD",
+            "game_over_background_color": "FFAE5D",
             "line_colors": [
                 "6F3662",
                 "FF7182",
@@ -338,6 +343,7 @@ class GamePlayViewController: UIViewController {
         ],
         [
             "background_color": "aaaaaa",
+            "game_over_background_color": "ffffff",
             "line_colors": [
                 "cccccc",
                 "ffffff",
@@ -347,6 +353,7 @@ class GamePlayViewController: UIViewController {
         ],
         [
             "background_color": "8ED2C9",
+            "game_over_background_color": "FFB85F",
             "line_colors": [
                 "FF7A5A",
                 "00AAA0",
@@ -356,8 +363,9 @@ class GamePlayViewController: UIViewController {
         ],
         [
             "background_color": "9FBF8C",
+            "game_over_background_color": "FFFFFF",
             "line_colors": [
-                "C8AB65",
+                "FFB85F",
                 "787A40",
                 "F69A98",
                 "FFFFFF"
@@ -415,6 +423,13 @@ class GamePlayViewController: UIViewController {
         let levelNumber = self.lineNumber / linesPerLevel + randomLevelOffset
         let levelIndex = levelNumber % LEVELS.count
         let backgroundColorHex = LEVELS[levelIndex]["background_color"]
+        return colorWithHexString(backgroundColorHex as! String)
+    }
+    
+    func getGameOverViewBackground() -> UIColor {
+        let levelNumber = self.lineNumber / linesPerLevel + randomLevelOffset
+        let levelIndex = levelNumber % LEVELS.count
+        let backgroundColorHex = LEVELS[levelIndex]["game_over_background_color"]
         return colorWithHexString(backgroundColorHex as! String)
     }
     

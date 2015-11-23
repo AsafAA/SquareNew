@@ -54,27 +54,27 @@
                                             <action selector="facebookPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6TA-Ms-Pf8"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Niw-R1-sUh">
-                                        <rect key="frame" x="27" y="28" width="66.5" height="31.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Niw-R1-sUh">
+                                        <rect key="frame" x="25" y="25" width="65.5" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="26"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7DA-RW-uLh">
-                                        <rect key="frame" x="27" y="83" width="52" height="31.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="7DA-RW-uLh">
+                                        <rect key="frame" x="25" y="76.5" width="50.5" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="26"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="kvz-AP-z9u" userLabel="FinalScoreLabel">
-                                        <rect key="frame" x="108.5" y="28" width="107" height="31.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <rect key="frame" x="105.5" y="25" width="110" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="26"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGG-CH-CLO" userLabel="BestScoreLabel">
-                                        <rect key="frame" x="94" y="83" width="122" height="31.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="dGG-CH-CLO" userLabel="BestScoreLabel">
+                                        <rect key="frame" x="90.5" y="76.5" width="124.5" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="26"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -91,21 +91,21 @@
                                 <constraints>
                                     <constraint firstItem="eBd-vN-eKt" firstAttribute="leading" secondItem="KiM-X0-f1K" secondAttribute="trailing" constant="15" id="226-9o-XNH"/>
                                     <constraint firstAttribute="bottom" secondItem="KiM-X0-f1K" secondAttribute="bottom" id="5ax-dz-kAB"/>
-                                    <constraint firstAttribute="trailing" secondItem="dGG-CH-CLO" secondAttribute="trailing" constant="24" id="6aJ-MR-dU2"/>
+                                    <constraint firstAttribute="trailing" secondItem="dGG-CH-CLO" secondAttribute="trailing" constant="25" id="6aJ-MR-dU2"/>
                                     <constraint firstItem="KiM-X0-f1K" firstAttribute="leading" secondItem="puw-Jy-RrM" secondAttribute="trailing" constant="15" id="7CT-gu-t0R"/>
-                                    <constraint firstItem="Niw-R1-sUh" firstAttribute="top" secondItem="abp-Eg-SqH" secondAttribute="top" constant="28" id="DWY-aJ-AHL"/>
-                                    <constraint firstItem="7DA-RW-uLh" firstAttribute="top" secondItem="Niw-R1-sUh" secondAttribute="bottom" constant="24" id="Kjp-hp-r9J"/>
+                                    <constraint firstItem="Niw-R1-sUh" firstAttribute="top" secondItem="abp-Eg-SqH" secondAttribute="top" constant="25" id="DWY-aJ-AHL"/>
+                                    <constraint firstItem="7DA-RW-uLh" firstAttribute="top" secondItem="Niw-R1-sUh" secondAttribute="bottom" constant="20" id="Kjp-hp-r9J"/>
                                     <constraint firstAttribute="height" constant="180" id="Ry9-Z9-OSI"/>
                                     <constraint firstItem="kvz-AP-z9u" firstAttribute="leading" secondItem="Niw-R1-sUh" secondAttribute="trailing" constant="15" id="VOt-GU-hxs"/>
                                     <constraint firstItem="dGG-CH-CLO" firstAttribute="centerY" secondItem="7DA-RW-uLh" secondAttribute="centerY" id="X6y-pv-BNP"/>
-                                    <constraint firstItem="7DA-RW-uLh" firstAttribute="leading" secondItem="abp-Eg-SqH" secondAttribute="leading" constant="27" id="Yvs-2j-8EZ"/>
+                                    <constraint firstItem="7DA-RW-uLh" firstAttribute="leading" secondItem="abp-Eg-SqH" secondAttribute="leading" constant="25" id="Yvs-2j-8EZ"/>
                                     <constraint firstAttribute="bottom" secondItem="puw-Jy-RrM" secondAttribute="bottom" id="cDF-Ox-tyr"/>
                                     <constraint firstItem="dGG-CH-CLO" firstAttribute="leading" secondItem="7DA-RW-uLh" secondAttribute="trailing" constant="15" id="d54-o7-df8"/>
-                                    <constraint firstItem="Niw-R1-sUh" firstAttribute="leading" secondItem="abp-Eg-SqH" secondAttribute="leading" constant="27" id="dT6-do-dhQ"/>
+                                    <constraint firstItem="Niw-R1-sUh" firstAttribute="leading" secondItem="abp-Eg-SqH" secondAttribute="leading" constant="25" id="dT6-do-dhQ"/>
                                     <constraint firstItem="kvz-AP-z9u" firstAttribute="centerY" secondItem="Niw-R1-sUh" secondAttribute="centerY" id="den-l7-xZj"/>
                                     <constraint firstAttribute="width" constant="240" id="ff5-OU-0ar"/>
                                     <constraint firstItem="KiM-X0-f1K" firstAttribute="centerX" secondItem="abp-Eg-SqH" secondAttribute="centerX" id="fgl-tZ-PMc"/>
-                                    <constraint firstAttribute="trailing" secondItem="kvz-AP-z9u" secondAttribute="trailing" constant="24" id="nvE-VT-qrC"/>
+                                    <constraint firstAttribute="trailing" secondItem="kvz-AP-z9u" secondAttribute="trailing" constant="25" id="nvE-VT-qrC"/>
                                     <constraint firstAttribute="bottom" secondItem="eBd-vN-eKt" secondAttribute="bottom" id="uNF-Wp-baN"/>
                                 </constraints>
                             </view>
