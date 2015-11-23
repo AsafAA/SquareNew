@@ -34,6 +34,9 @@ class GamePlayViewController: UIViewController {
     var finalScore = 0
     let defaults = NSUserDefaults(suiteName: "group.io.asaf.square")!
 
+    @IBOutlet var facebookButton: UIButton!
+    @IBOutlet var menuButton: UIButton!
+    @IBOutlet var replayButton: UIButton!
     @IBOutlet var gameOverView: UIView!
     @IBOutlet var finalScoreLabel: UILabel!
     @IBOutlet var bestScoreLabel: UILabel!
@@ -59,6 +62,10 @@ class GamePlayViewController: UIViewController {
         gameOverView.layer.shadowOffset = CGSize(width: 1, height: 1)
         exitButton.hidden = (gameMode != "training")
         
+        menuButton.layer.cornerRadius = 5
+        replayButton.layer.cornerRadius = 5
+        facebookButton.layer.cornerRadius = 5
+        
         startGame()
     }
     
@@ -67,6 +74,7 @@ class GamePlayViewController: UIViewController {
     
     func startGame() {
         randomLevelOffset = Int(arc4random_uniform(UInt32(LEVELS.count)))
+        updateColors()
         gameOverView.hidden = true
         tick = 0
         linesPassed = 0
@@ -102,7 +110,7 @@ class GamePlayViewController: UIViewController {
         square.hidden = true
         finalScoreLabel.text = String(finalScore)
         bestScoreLabel.text = String(bestScore)
-        gameOverView.backgroundColor = getGameOverViewBackground()
+//        gameOverView.backgroundColor = getGameOverViewBackground()
         
         gameOverView.hidden = false
     }
@@ -268,8 +276,7 @@ class GamePlayViewController: UIViewController {
             self.view.backgroundColor = self.getBackgroundColor()
         } else if lineNumber % linesPerLevel == 0 {
             UIView.animateWithDuration(0.5, animations: {
-                self.view.backgroundColor = self.getBackgroundColor()
-
+                self.updateColors()
             }, completion: nil)
         }
         
@@ -289,6 +296,14 @@ class GamePlayViewController: UIViewController {
     
     func gapHeightMultiplier() -> Double {
         return MODES[gameMode]!["gapHeightMultiplier"]!
+    }
+    
+    func updateColors() {
+        self.view.backgroundColor = self.getBackgroundColor()
+        self.gameOverView.backgroundColor = self.getGameOverViewBackground()
+        self.replayButton.backgroundColor = self.getReplayButtonBackgroundColor()
+        self.menuButton.backgroundColor = self.getMenuButtonBackgroundColor()
+        self.facebookButton.backgroundColor = self.getFacebookButtonBackgroundColor()
     }
     
     let MODES = [
@@ -324,6 +339,9 @@ class GamePlayViewController: UIViewController {
         [
             "background_color": "FEF6EB",
             "game_over_background_color": "96C0CE",
+            "replay_button_color": "525564",
+            "menu_button_color": "C25B56",
+            "facebook_button_color": "BEB9B5",
             "line_colors": [
                 "525564",
                 "96C0CE",
@@ -334,6 +352,9 @@ class GamePlayViewController: UIViewController {
         [
             "background_color": "F8DEBD",
             "game_over_background_color": "FFAE5D",
+            "replay_button_color": "9F6164",
+            "menu_button_color": "FF7182",
+            "facebook_button_color": "6F3662",
             "line_colors": [
                 "6F3662",
                 "FF7182",
@@ -344,6 +365,9 @@ class GamePlayViewController: UIViewController {
         [
             "background_color": "aaaaaa",
             "game_over_background_color": "ffffff",
+            "replay_button_color": "aaaaaa",
+            "menu_button_color": "333333",
+            "facebook_button_color": "777777",
             "line_colors": [
                 "cccccc",
                 "ffffff",
@@ -354,6 +378,9 @@ class GamePlayViewController: UIViewController {
         [
             "background_color": "8ED2C9",
             "game_over_background_color": "FFB85F",
+            "replay_button_color": "FF7A5A",
+            "menu_button_color": "00AAA0",
+            "facebook_button_color": "462066",
             "line_colors": [
                 "FF7A5A",
                 "00AAA0",
@@ -364,6 +391,9 @@ class GamePlayViewController: UIViewController {
         [
             "background_color": "9FBF8C",
             "game_over_background_color": "FFFFFF",
+            "replay_button_color": "FFB85F",
+            "menu_button_color": "787A40",
+            "facebook_button_color": "F69A98",
             "line_colors": [
                 "FFB85F",
                 "787A40",
@@ -430,6 +460,27 @@ class GamePlayViewController: UIViewController {
         let levelNumber = self.lineNumber / linesPerLevel + randomLevelOffset
         let levelIndex = levelNumber % LEVELS.count
         let backgroundColorHex = LEVELS[levelIndex]["game_over_background_color"]
+        return colorWithHexString(backgroundColorHex as! String)
+    }
+    
+    func getReplayButtonBackgroundColor() -> UIColor {
+        let levelNumber = self.lineNumber / linesPerLevel + randomLevelOffset
+        let levelIndex = levelNumber % LEVELS.count
+        let backgroundColorHex = LEVELS[levelIndex]["replay_button_color"]
+        return colorWithHexString(backgroundColorHex as! String)
+    }
+    
+    func getMenuButtonBackgroundColor() -> UIColor {
+        let levelNumber = self.lineNumber / linesPerLevel + randomLevelOffset
+        let levelIndex = levelNumber % LEVELS.count
+        let backgroundColorHex = LEVELS[levelIndex]["menu_button_color"]
+        return colorWithHexString(backgroundColorHex as! String)
+    }
+    
+    func getFacebookButtonBackgroundColor() -> UIColor {
+        let levelNumber = self.lineNumber / linesPerLevel + randomLevelOffset
+        let levelIndex = levelNumber % LEVELS.count
+        let backgroundColorHex = LEVELS[levelIndex]["facebook_button_color"]
         return colorWithHexString(backgroundColorHex as! String)
     }
     
