@@ -357,7 +357,6 @@ class GamePlayViewController: UIViewController {
     @IBAction func exitGame(sender: AnyObject) {
         dispatch_async(dispatch_get_main_queue(),{
             self.timer.invalidate()
-            //                self.lineTimer.invalidate()
         })
         self.dismissViewControllerAnimated(true, completion: nil)
     }

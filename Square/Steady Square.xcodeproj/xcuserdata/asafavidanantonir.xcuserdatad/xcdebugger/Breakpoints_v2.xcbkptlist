@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Square/MenuViewController.swift"
-            timestampString = "470033808.038058"
+            timestampString = "470041467.036237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "MenuViewController"
             landmarkType = "3">
          </BreakpointContent>
