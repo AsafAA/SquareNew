@@ -64,19 +64,19 @@ let LEVELS = [
             "9F6164"
         ]
     ],
-    [
-        "background_color": "aaaaaa",
-        "game_over_background_color": "ffffff",
-        "button1_color": "aaaaaa",
-        "button2_color": "333333",
-        "button3_color": "777777",
-        "line_colors": [
-            "cccccc",
-            "ffffff",
-            "333333",
-            "777777"
-        ]
-    ],
+//    [
+//        "background_color": "aaaaaa",
+//        "game_over_background_color": "ffffff",
+//        "button1_color": "aaaaaa",
+//        "button2_color": "333333",
+//        "button3_color": "777777",
+//        "line_colors": [
+//            "cccccc",
+//            "ffffff",
+//            "333333",
+//            "777777"
+//        ]
+//    ],
     [
         "background_color": "8ED2C9",
         "game_over_background_color": "FFB85F",

@@ -174,79 +174,102 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhe-Xf-Qca" userLabel="EasyButton">
-                                <rect key="frame" x="224.5" y="155" width="150" height="50"/>
-                                <state key="normal" title="Easy">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="easy" animates="NO" id="QuY-E2-dFA"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jme-x4-OpX" userLabel="MediumButton">
-                                <rect key="frame" x="225" y="215" width="150" height="50"/>
-                                <state key="normal" title="Medium">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="medium" animates="NO" id="Bqw-qz-5oo"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ali-Ow-YkZ" userLabel="HardButton">
-                                <rect key="frame" x="225" y="275" width="150" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTW-TM-ZZh" userLabel="ButtonView">
+                                <rect key="frame" x="160" y="85" width="280" height="430"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhe-Xf-Qca" userLabel="EasyButton">
+                                        <rect key="frame" x="65" y="60" width="150" height="50"/>
+                                        <state key="normal" title="Easy">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="easy" animates="NO" id="QuY-E2-dFA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jme-x4-OpX" userLabel="MediumButton">
+                                        <rect key="frame" x="65" y="125" width="150" height="50"/>
+                                        <state key="normal" title="Medium">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="medium" animates="NO" id="Bqw-qz-5oo"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ali-Ow-YkZ" userLabel="HardButton">
+                                        <rect key="frame" x="65" y="190" width="150" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="ilz-ZW-OG3"/>
+                                            <constraint firstAttribute="width" constant="150" id="oMj-bL-j5w"/>
+                                        </constraints>
+                                        <state key="normal" title="Hard">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="hard" animates="NO" id="jOm-w0-TRU"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwb-d5-t9K" userLabel="InsaneButton">
+                                        <rect key="frame" x="65" y="255" width="150" height="50"/>
+                                        <state key="normal" title="Insane">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="insane" animates="NO" id="JGf-pu-dl0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLE-DB-34V" userLabel="TrainingButton">
+                                        <rect key="frame" x="65" y="320" width="150" height="50"/>
+                                        <state key="normal" title="Training">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="training" animates="NO" id="4Nl-Ml-yqX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="714-Qp-sl2"/>
-                                    <constraint firstAttribute="height" constant="50" id="ANU-6Y-JBV"/>
+                                    <constraint firstItem="XLE-DB-34V" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="2Eq-66-F4d"/>
+                                    <constraint firstAttribute="trailing" secondItem="ali-Ow-YkZ" secondAttribute="trailing" constant="65" id="4Gz-Tk-tis"/>
+                                    <constraint firstItem="fwb-d5-t9K" firstAttribute="centerX" secondItem="ali-Ow-YkZ" secondAttribute="centerX" id="5TX-cT-Gob"/>
+                                    <constraint firstItem="lhe-Xf-Qca" firstAttribute="centerX" secondItem="ali-Ow-YkZ" secondAttribute="centerX" id="7Jj-cV-Rk9"/>
+                                    <constraint firstItem="ali-Ow-YkZ" firstAttribute="leading" secondItem="tTW-TM-ZZh" secondAttribute="leading" constant="65" id="8a9-te-8dE"/>
+                                    <constraint firstItem="fwb-d5-t9K" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="AII-B4-Eyf"/>
+                                    <constraint firstItem="XLE-DB-34V" firstAttribute="centerX" secondItem="ali-Ow-YkZ" secondAttribute="centerX" id="Cxl-M1-QzM"/>
+                                    <constraint firstItem="jme-x4-OpX" firstAttribute="top" secondItem="ali-Ow-YkZ" secondAttribute="bottom" constant="-50" id="J9V-lM-j3J"/>
+                                    <constraint firstItem="fwb-d5-t9K" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="L0K-vS-Jft"/>
+                                    <constraint firstItem="jme-x4-OpX" firstAttribute="centerX" secondItem="ali-Ow-YkZ" secondAttribute="centerX" id="M1l-pz-sQI"/>
+                                    <constraint firstItem="XLE-DB-34V" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="N0p-wr-S4y"/>
+                                    <constraint firstItem="fwb-d5-t9K" firstAttribute="top" secondItem="ali-Ow-YkZ" secondAttribute="bottom" constant="15" id="NCB-Xs-Uiy"/>
+                                    <constraint firstItem="XLE-DB-34V" firstAttribute="top" secondItem="fwb-d5-t9K" secondAttribute="bottom" constant="15" id="PvL-fT-Rur"/>
+                                    <constraint firstItem="ali-Ow-YkZ" firstAttribute="centerY" secondItem="tTW-TM-ZZh" secondAttribute="centerY" id="Tf5-7H-WBL"/>
+                                    <constraint firstItem="jme-x4-OpX" firstAttribute="top" secondItem="lhe-Xf-Qca" secondAttribute="bottom" constant="15" id="V1z-uP-gOd"/>
+                                    <constraint firstItem="ali-Ow-YkZ" firstAttribute="top" secondItem="jme-x4-OpX" secondAttribute="bottom" constant="15" id="Ym8-nW-mDh"/>
+                                    <constraint firstItem="ali-Ow-YkZ" firstAttribute="centerX" secondItem="tTW-TM-ZZh" secondAttribute="centerX" id="bUc-kd-Dv0"/>
+                                    <constraint firstItem="jme-x4-OpX" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="gPV-fH-c5G"/>
+                                    <constraint firstItem="lhe-Xf-Qca" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="jle-tj-jJ8"/>
+                                    <constraint firstAttribute="bottom" secondItem="XLE-DB-34V" secondAttribute="bottom" constant="60" id="ldA-6P-CFo"/>
+                                    <constraint firstItem="lhe-Xf-Qca" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="lkp-8b-8Q4"/>
+                                    <constraint firstItem="jme-x4-OpX" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="o4c-vB-AfC"/>
+                                    <constraint firstItem="lhe-Xf-Qca" firstAttribute="top" secondItem="jme-x4-OpX" secondAttribute="bottom" constant="-50" id="tYP-mE-8TY"/>
+                                    <constraint firstItem="lhe-Xf-Qca" firstAttribute="top" secondItem="tTW-TM-ZZh" secondAttribute="top" constant="60" id="uBg-NO-zMp"/>
                                 </constraints>
-                                <state key="normal" title="Hard">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="hard" animates="NO" id="jOm-w0-TRU"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwb-d5-t9K" userLabel="InsaneButton">
-                                <rect key="frame" x="225" y="335" width="150" height="50"/>
-                                <state key="normal" title="Insane">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="insane" animates="NO" id="JGf-pu-dl0"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLE-DB-34V" userLabel="TrainingButton">
-                                <rect key="frame" x="225.5" y="395" width="150" height="50"/>
-                                <state key="normal" title="Training">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="training" animates="NO" id="4Nl-Ml-yqX"/>
-                                </connections>
-                            </button>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="tYP-mE-8TY"/>
+                                        <exclude reference="J9V-lM-j3J"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jme-x4-OpX" firstAttribute="centerX" secondItem="ali-Ow-YkZ" secondAttribute="centerX" id="0Xd-2A-Qia"/>
-                            <constraint firstItem="fwb-d5-t9K" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="4X1-Xw-mUY"/>
-                            <constraint firstItem="ali-Ow-YkZ" firstAttribute="centerX" secondItem="fwb-d5-t9K" secondAttribute="centerX" id="7zz-G3-hmt"/>
-                            <constraint firstItem="lhe-Xf-Qca" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="AIL-Ga-te2"/>
-                            <constraint firstItem="fwb-d5-t9K" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="Afh-KM-MkB"/>
-                            <constraint firstItem="jme-x4-OpX" firstAttribute="top" secondItem="lhe-Xf-Qca" secondAttribute="bottom" constant="10" id="Bnr-p0-Ozg"/>
-                            <constraint firstItem="XLE-DB-34V" firstAttribute="top" secondItem="fwb-d5-t9K" secondAttribute="bottom" constant="10" id="PnO-tu-AaT"/>
-                            <constraint firstItem="ali-Ow-YkZ" firstAttribute="centerX" secondItem="nlB-zt-eH8" secondAttribute="centerX" id="SvR-XI-hSZ"/>
-                            <constraint firstItem="lhe-Xf-Qca" firstAttribute="centerX" secondItem="jme-x4-OpX" secondAttribute="centerX" id="XTv-uC-r81"/>
-                            <constraint firstItem="ali-Ow-YkZ" firstAttribute="centerY" secondItem="nlB-zt-eH8" secondAttribute="centerY" id="Z1w-C6-zyg"/>
-                            <constraint firstItem="jme-x4-OpX" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="aD9-5S-G33"/>
-                            <constraint firstItem="XLE-DB-34V" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="dql-hb-K4L"/>
-                            <constraint firstItem="fwb-d5-t9K" firstAttribute="centerX" secondItem="XLE-DB-34V" secondAttribute="centerX" id="e6B-FW-eL4"/>
-                            <constraint firstItem="jme-x4-OpX" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="e9Q-90-JwI"/>
-                            <constraint firstItem="XLE-DB-34V" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="evz-zc-4oe"/>
-                            <constraint firstItem="ali-Ow-YkZ" firstAttribute="top" secondItem="jme-x4-OpX" secondAttribute="bottom" constant="10" id="fGm-fX-8Mq"/>
-                            <constraint firstItem="fwb-d5-t9K" firstAttribute="top" secondItem="ali-Ow-YkZ" secondAttribute="bottom" constant="10" id="iWp-eD-znH"/>
-                            <constraint firstItem="lhe-Xf-Qca" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="nJR-IC-X3L"/>
+                            <constraint firstItem="tTW-TM-ZZh" firstAttribute="centerY" secondItem="nlB-zt-eH8" secondAttribute="centerY" id="GKD-Rq-xUZ"/>
+                            <constraint firstItem="tTW-TM-ZZh" firstAttribute="centerX" secondItem="nlB-zt-eH8" secondAttribute="centerX" id="syc-GH-iS7"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonView" destination="tTW-TM-ZZh" id="Fcu-Ut-i2c"/>
                         <outlet property="easyButton" destination="lhe-Xf-Qca" id="56Y-q1-99j"/>
                         <outlet property="hardButton" destination="ali-Ow-YkZ" id="TT0-9Y-JD5"/>
                         <outlet property="insaneButton" destination="fwb-d5-t9K" id="g0h-F3-cu1"/>

@@ -19,17 +19,13 @@ class MenuViewController: UIViewController {
     @IBOutlet var hardButton: UIButton!
     @IBOutlet var insaneButton: UIButton!
     @IBOutlet var trainingButton: UIButton!
+    @IBOutlet var buttonView: UIView!
     var randomLevelIndex: Int = 0
     var lines: [UIView] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        easyButton.layer.cornerRadius = 5
-        mediumButton.layer.cornerRadius = 5
-        hardButton.layer.cornerRadius = 5
-        insaneButton.layer.cornerRadius = 5
-        trainingButton.layer.cornerRadius = 5
+        drawButtons()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -48,6 +44,9 @@ class MenuViewController: UIViewController {
     }
     
     func drawButtons() {
+        buttonView.layer.zPosition = 1
+        buttonView.layer.cornerRadius = 5
+        buttonView.backgroundColor = getBackgroundColor()
         easyButton.backgroundColor = getButtonColor(1)
         easyButton.layer.zPosition = 1
         mediumButton.backgroundColor = getButtonColor(2)
@@ -58,6 +57,12 @@ class MenuViewController: UIViewController {
         insaneButton.layer.zPosition = 1
         trainingButton.backgroundColor = getButtonColor(1)
         trainingButton.layer.zPosition = 1
+        
+        easyButton.layer.cornerRadius = 5
+        mediumButton.layer.cornerRadius = 5
+        hardButton.layer.cornerRadius = 5
+        insaneButton.layer.cornerRadius = 5
+        trainingButton.layer.cornerRadius = 5
     }
     
     func drawBackground() {
@@ -80,6 +85,7 @@ class MenuViewController: UIViewController {
             line.backgroundColor = getLineColor(colorIndex)
             line.transform = CGAffineTransformMakeRotation(-1 * CGFloat(M_PI) / 6)
             self.view.addSubview(line)
+            line.layer.zPosition = 0
             lines.append(line)
             x += 2.1*width
             y -= 2.1*width
