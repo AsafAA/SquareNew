@@ -53,8 +53,6 @@ class MenuViewController: UIViewController {
     }
     
     func moveLines() {
-        print(lines.count)
-        print(colorIndex)
         let width = self.view.frame.height / 30
         
         for line in lines {

@@ -34,6 +34,7 @@ class GamePlayViewController: UIViewController {
     var finalScore = 0
     let defaults = NSUserDefaults(suiteName: "group.io.asaf.square")!
     let colorLevels: ColorLevels = ColorLevels()
+    var previouslyOverlapping: Bool = false
 
     @IBOutlet var facebookButton: UIButton!
     @IBOutlet var menuButton: UIButton!
@@ -43,10 +44,6 @@ class GamePlayViewController: UIViewController {
     @IBOutlet var bestScoreLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("DEFAULTS")
-        print(defaults)
-        
         viewWidth = self.view.frame.width
         viewHeight = self.view.frame.height
         squareWidth = self.view.frame.height / 30
@@ -102,11 +99,6 @@ class GamePlayViewController: UIViewController {
         }
         defaults.synchronize()
         
-        print("FINAL SCORE")
-        print(finalScore)
-        print("BEST SCORE")
-        print(bestScore)
-        
         scoreLabel.hidden = true
         square.hidden = true
         finalScoreLabel.text = String(finalScore)
@@ -117,8 +109,6 @@ class GamePlayViewController: UIViewController {
     }
     
     func startGameLoop() {
-        initGapLine()
-        
         dispatch_async(dispatch_get_main_queue(),{
             self.timer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "checkState", userInfo: nil, repeats: true)
         })
@@ -131,7 +121,7 @@ class GamePlayViewController: UIViewController {
         })
         
         square.removeFromSuperview()
-        self.view.layer.removeAllAnimations()
+
         for line in lines {
             line.removeFromSuperview()
         }
@@ -140,55 +130,55 @@ class GamePlayViewController: UIViewController {
     }
     
     func initGapLine() {
+        print(lines.count)
         let gapHeight = viewHeight * CGFloat(gapHeightMultiplier())
         
         initLine(CGFloat(Int(arc4random_uniform(UInt32(viewHeight - gapHeight * 1.5))) + Int(gapHeight * 0.75)), gapHeight: gapHeight)
     }
     
     func checkState() {
-        let x_distance = viewWidth + squareWidth
-        let x_delta = x_distance / (60 * CGFloat(lineTime()))
-        for line in lines {
-            line.center = CGPointMake(line.center.x - x_delta, line.center.y)
-        }
-        
-        if lines.count > 1 {
-            
-            let firstLineTop = lines[0]
-            let firstLineBottom = lines[1]
-            
-            if firstLineTop.center.x < 0 - squareWidth / 2 {
-//                print("NUM LINES")
-//                print(lines.count)
-                
-                lines.removeFirst()
-                lines.removeFirst()
-                firstLineTop.removeFromSuperview()
-                firstLineBottom.removeFromSuperview()
-                
-                if gameMode != "training" {
-                    linesPassed += 1
-                    scoreLabel.text = String(linesPassed)
-                }
-            }
-            
-            
-        }
-        
         tick += 1
         if tick % (lineGapTime() * 60) == 0 {
             initGapLine()
         }
         
-        if gameMode != "training" && collision() {
-   
-//        stopGame()
-//            
-//        dismissViewControllerAnimated(false, completion: nil)
-//            replayPressed()
-            presentGameOverView()
-            
+        if previouslyOverlapping && !currentlyOverlapping() {
+            self.linesPassed += 1
+            if self.gameMode != "training" {
+                self.scoreLabel.text = String(self.linesPassed)
+            }
         }
+        
+        previouslyOverlapping = currentlyOverlapping()
+        
+        if gameMode != "training" && collision() {
+            presentGameOverView()
+        }
+    }
+    
+    func currentlyOverlapping() -> Bool {
+        if !gameOverView.hidden {
+            return false
+        }
+        for line in self.lines {
+            if overlap(square, view2: line) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func overlap(view1: UIView, view2: UIView) -> Bool {
+        if let layer1 = view1.layer.presentationLayer() {
+            if let layer2 = view2.layer.presentationLayer() {
+                let frame1 = layer1.frame
+                let frame2 = layer2.frame
+                
+                return  !((frame1.maxX < frame2.minX) || (frame2.maxX < frame1.minX) )
+            }
+        }
+        
+        return false
     }
     
     func collision() -> Bool {
@@ -251,16 +241,6 @@ class GamePlayViewController: UIViewController {
     }
     
     func initLine(gapY: CGFloat, gapHeight: CGFloat) {
-//        print(bestScoreKey())
-//        print("INIT LINE")
-//        print(lineNumber)
-//        print("LINES PASSED")
-//        print(linesPassed)
-        if true {
-            self.linesPassed == 0
-            self.scoreLabel.text = String(linesPassed)
-        }
-        print(linesPassed)
         let lineTopHeight = gapY - gapHeight/2
         let lineBottomHeight = viewHeight - (gapY + gapHeight/2)
         
@@ -282,6 +262,27 @@ class GamePlayViewController: UIViewController {
         }
         
         self.lineNumber += 1
+        
+        UIView.animateWithDuration(lineTime(), delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+            lineTop.frame = CGRectMake(0 - self.lineWidth, 0, self.lineWidth, lineTopHeight)
+            lineBottom.frame = CGRectMake(0 - self.lineWidth, gapY + gapHeight/2, self.lineWidth, lineBottomHeight)
+            }, completion: { finished in
+                
+                
+                
+                lineTop.removeFromSuperview()
+                lineBottom.removeFromSuperview()
+                
+                // Lines may have been removed by stopGame()
+                if !self.lines.isEmpty {
+                    self.lines.removeFirst()
+                }
+                if !self.lines.isEmpty {
+                    self.lines.removeFirst()
+                }
+        })
+        
+      
     }
     
     //==============================
