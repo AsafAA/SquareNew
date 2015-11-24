@@ -15,6 +15,7 @@
 		E81063811BF46D65006B746B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81063801BF46D65006B746B /* GameViewController.swift */; };
 		E8FBC2531BF997E70047BC9D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8FBC2521BF997E70047BC9D /* iAd.framework */; };
 		E8FBC2551BF9A7B40047BC9D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FBC2541BF9A7B40047BC9D /* MenuViewController.swift */; };
+		E8FBC2971C02FA6C0047BC9D /* ColorLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FBC2961C02FA6C0047BC9D /* ColorLevels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		E81063801BF46D65006B746B /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		E8FBC2521BF997E70047BC9D /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E8FBC2541BF9A7B40047BC9D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		E8FBC2961C02FA6C0047BC9D /* ColorLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorLevels.swift; path = ../ColorLevels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		E810636D1BF1CEC1006B746B /* Square */ = {
 			isa = PBXGroup;
 			children = (
+				E8FBC2961C02FA6C0047BC9D /* ColorLevels.swift */,
 				E810636E1BF1CEC1006B746B /* AppDelegate.swift */,
 				E81063701BF1CEC1006B746B /* GamePlayViewController.swift */,
 				E81063721BF1CEC1006B746B /* Main.storyboard */,
@@ -150,6 +153,7 @@
 				E81063811BF46D65006B746B /* GameViewController.swift in Sources */,
 				E810636F1BF1CEC1006B746B /* AppDelegate.swift in Sources */,
 				E8FBC2551BF9A7B40047BC9D /* MenuViewController.swift in Sources */,
+				E8FBC2971C02FA6C0047BC9D /* ColorLevels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

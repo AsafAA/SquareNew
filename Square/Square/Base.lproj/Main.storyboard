@@ -9,7 +9,7 @@
         <!--Game Play View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="GamePlayViewController" customModule="Square" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="GamePlayViewController" customModule="Steady_Square" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -40,8 +40,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abp-Eg-SqH" userLabel="Game Over View">
                                 <rect key="frame" x="180" y="207" width="240" height="185"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiM-X0-f1K">
-                                        <rect key="frame" x="94" y="115" width="50" height="50"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiM-X0-f1K">
+                                        <rect key="frame" x="95" y="115" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="QFl-go-NIQ"/>
                                             <constraint firstAttribute="width" constant="50" id="ReY-ns-ORg"/>
@@ -165,7 +165,7 @@
         <!--Menu View Controller-->
         <scene sceneID="ziK-ug-N5q">
             <objects>
-                <viewController id="cDf-be-yCB" customClass="MenuViewController" customModule="Square" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cDf-be-yCB" customClass="MenuViewController" customModule="Steady_Square" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kNM-Qj-3MO"/>
                         <viewControllerLayoutGuide type="bottom" id="xcK-Dz-bAu"/>
@@ -175,36 +175,50 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhe-Xf-Qca" userLabel="EasyButton">
-                                <rect key="frame" x="283" y="205" width="33" height="30"/>
-                                <state key="normal" title="Easy"/>
+                                <rect key="frame" x="224.5" y="155" width="150" height="50"/>
+                                <state key="normal" title="Easy">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="easy" animates="NO" id="QuY-E2-dFA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jme-x4-OpX" userLabel="MediumButton">
-                                <rect key="frame" x="272.5" y="245" width="55" height="30"/>
-                                <state key="normal" title="Medium"/>
+                                <rect key="frame" x="225" y="215" width="150" height="50"/>
+                                <state key="normal" title="Medium">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="medium" animates="NO" id="Bqw-qz-5oo"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ali-Ow-YkZ" userLabel="HardButton">
-                                <rect key="frame" x="283" y="285" width="34" height="30"/>
-                                <state key="normal" title="Hard"/>
+                                <rect key="frame" x="225" y="275" width="150" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="714-Qp-sl2"/>
+                                    <constraint firstAttribute="height" constant="50" id="ANU-6Y-JBV"/>
+                                </constraints>
+                                <state key="normal" title="Hard">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="hard" animates="NO" id="jOm-w0-TRU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwb-d5-t9K" userLabel="InsaneButton">
-                                <rect key="frame" x="277.5" y="325" width="45" height="30"/>
-                                <state key="normal" title="Insane"/>
+                                <rect key="frame" x="225" y="335" width="150" height="50"/>
+                                <state key="normal" title="Insane">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="insane" animates="NO" id="JGf-pu-dl0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLE-DB-34V" userLabel="TrainingButton">
-                                <rect key="frame" x="273" y="365" width="55" height="30"/>
-                                <state key="normal" title="Training"/>
+                                <rect key="frame" x="225.5" y="395" width="150" height="50"/>
+                                <state key="normal" title="Training">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="training" animates="NO" id="4Nl-Ml-yqX"/>
                                 </connections>
@@ -213,17 +227,32 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="jme-x4-OpX" firstAttribute="centerX" secondItem="ali-Ow-YkZ" secondAttribute="centerX" id="0Xd-2A-Qia"/>
+                            <constraint firstItem="fwb-d5-t9K" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="4X1-Xw-mUY"/>
                             <constraint firstItem="ali-Ow-YkZ" firstAttribute="centerX" secondItem="fwb-d5-t9K" secondAttribute="centerX" id="7zz-G3-hmt"/>
+                            <constraint firstItem="lhe-Xf-Qca" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="AIL-Ga-te2"/>
+                            <constraint firstItem="fwb-d5-t9K" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="Afh-KM-MkB"/>
                             <constraint firstItem="jme-x4-OpX" firstAttribute="top" secondItem="lhe-Xf-Qca" secondAttribute="bottom" constant="10" id="Bnr-p0-Ozg"/>
                             <constraint firstItem="XLE-DB-34V" firstAttribute="top" secondItem="fwb-d5-t9K" secondAttribute="bottom" constant="10" id="PnO-tu-AaT"/>
                             <constraint firstItem="ali-Ow-YkZ" firstAttribute="centerX" secondItem="nlB-zt-eH8" secondAttribute="centerX" id="SvR-XI-hSZ"/>
                             <constraint firstItem="lhe-Xf-Qca" firstAttribute="centerX" secondItem="jme-x4-OpX" secondAttribute="centerX" id="XTv-uC-r81"/>
                             <constraint firstItem="ali-Ow-YkZ" firstAttribute="centerY" secondItem="nlB-zt-eH8" secondAttribute="centerY" id="Z1w-C6-zyg"/>
+                            <constraint firstItem="jme-x4-OpX" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="aD9-5S-G33"/>
+                            <constraint firstItem="XLE-DB-34V" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="dql-hb-K4L"/>
                             <constraint firstItem="fwb-d5-t9K" firstAttribute="centerX" secondItem="XLE-DB-34V" secondAttribute="centerX" id="e6B-FW-eL4"/>
+                            <constraint firstItem="jme-x4-OpX" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="e9Q-90-JwI"/>
+                            <constraint firstItem="XLE-DB-34V" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="evz-zc-4oe"/>
                             <constraint firstItem="ali-Ow-YkZ" firstAttribute="top" secondItem="jme-x4-OpX" secondAttribute="bottom" constant="10" id="fGm-fX-8Mq"/>
                             <constraint firstItem="fwb-d5-t9K" firstAttribute="top" secondItem="ali-Ow-YkZ" secondAttribute="bottom" constant="10" id="iWp-eD-znH"/>
+                            <constraint firstItem="lhe-Xf-Qca" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="nJR-IC-X3L"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="easyButton" destination="lhe-Xf-Qca" id="56Y-q1-99j"/>
+                        <outlet property="hardButton" destination="ali-Ow-YkZ" id="TT0-9Y-JD5"/>
+                        <outlet property="insaneButton" destination="fwb-d5-t9K" id="g0h-F3-cu1"/>
+                        <outlet property="mediumButton" destination="jme-x4-OpX" id="aLf-w1-FFg"/>
+                        <outlet property="trainingButton" destination="XLE-DB-34V" id="1Si-h3-Y68"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="saR-kr-8Sy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
