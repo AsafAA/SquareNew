@@ -216,10 +216,12 @@ class GamePlayViewController: UIViewController {
             square.center = CGPointMake(squareX, maxY - ratio*(maxY - minY))
             
             if gameMode == "training" {
-                scoreLabel.text = String(ratio)
+                scoreLabel.text = String(Int(round(ratio*385)))
             }
         }
     }
+    
+    
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         square.center = CGPointMake(squareX, maxY)

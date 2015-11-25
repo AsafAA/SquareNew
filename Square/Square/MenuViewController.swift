@@ -36,7 +36,7 @@ class MenuViewController: UIViewController {
         drawBackground()
         
         dispatch_async(dispatch_get_main_queue(),{
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "moveLines", userInfo: nil, repeats: true)
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(8.0/10.0, target: self, selector: "addLine", userInfo: nil, repeats: true)
         })
     }
     
@@ -48,8 +48,49 @@ class MenuViewController: UIViewController {
         dispatch_async(dispatch_get_main_queue(),{
             self.timer.invalidate()
         })
+        
+        for line in lines {
+            line.removeFromSuperview()
+        }
+        lines.removeAll()
+        
         let gamePlayViewController = (segue.destinationViewController as! GamePlayViewController)
         gamePlayViewController.gameMode = segue.identifier
+    }
+    
+    func addLine() {
+        initLine(0, y: self.view.frame.height)
+        print(lines.count)
+    }
+    
+    func initLine(x: CGFloat, y:CGFloat) {
+        let width = self.view.frame.height / 30
+        let height = self.view.frame.height
+        let line = UIView(frame: CGRectMake(0, 0, width, height * 1.5))
+        line.center = CGPointMake(x, y)
+        line.backgroundColor = getLineColor(colorIndex)
+        line.transform = CGAffineTransformMakeRotation(-1 * CGFloat(M_PI) / 6)
+        self.view.addSubview(line)
+        line.layer.zPosition = 0
+        lines.append(line)
+        colorIndex += 1
+        
+        UIView.animateWithDuration(8.0, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+                line.center = CGPointMake(x + self.view.frame.width, y - self.view.frame.height)
+            }, completion: { finished in
+                line.removeFromSuperview()
+                if !self.lines.isEmpty {
+                    self.lines.removeFirst()
+                }
+        })
+
+
+    }
+    
+    func diagonalLength() -> CGFloat {
+        let width = self.view.frame.width
+        let height = self.view.frame.height
+        return sqrt(pow(width, 2.0) + pow(height, 2.0))
     }
     
     func moveLines() {
@@ -76,7 +117,7 @@ class MenuViewController: UIViewController {
     func drawButtons() {
         buttonView.layer.zPosition = 1
         buttonView.layer.cornerRadius = 5
-        buttonView.backgroundColor = getBackgroundColor()
+        buttonView.backgroundColor = UIColor.clearColor()
         easyButton.backgroundColor = getButtonColor(1)
         easyButton.layer.zPosition = 1
         mediumButton.backgroundColor = getButtonColor(2)
@@ -98,28 +139,16 @@ class MenuViewController: UIViewController {
     func drawBackground() {
         self.view.backgroundColor = getBackgroundColor()
         
-        for line in lines {
-            line.removeFromSuperview()
-        }
-        lines.removeAll()
-        
-        let width = self.view.frame.height / 30
+        let width = self.view.frame.width
         let height = self.view.frame.height
-        var x = CGFloat(width/2)
-        var y = self.view.frame.height
+        var x = CGFloat(width)
+        var y = CGFloat(0)
         colorIndex = 0
-        while x < self.view.frame.width || y > -0.5 * height {
+        while x >= 0 || y < height {
             
-            let line = UIView(frame: CGRectMake(0, 0, width, height * 1.5))
-            line.center = CGPointMake(x, y)
-            line.backgroundColor = getLineColor(colorIndex)
-            line.transform = CGAffineTransformMakeRotation(-1 * CGFloat(M_PI) / 6)
-            self.view.addSubview(line)
-            line.layer.zPosition = 0
-            lines.append(line)
-            x += 2.1*width
-            y -= 2.1*width
-            colorIndex += 1
+            initLine(x, y: y)
+            x -= width/10
+            y += height/10
         }
         
         print(lines.count)

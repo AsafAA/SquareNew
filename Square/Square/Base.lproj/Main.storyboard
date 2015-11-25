@@ -175,10 +175,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTW-TM-ZZh" userLabel="ButtonView">
-                                <rect key="frame" x="160" y="85" width="280" height="430"/>
+                                <rect key="frame" x="170" y="52.5" width="260" height="495"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhe-Xf-Qca" userLabel="EasyButton">
-                                        <rect key="frame" x="65" y="60" width="150" height="50"/>
+                                        <rect key="frame" x="30" y="30" width="200" height="75"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="34"/>
                                         <state key="normal" title="Easy">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -187,7 +188,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jme-x4-OpX" userLabel="MediumButton">
-                                        <rect key="frame" x="65" y="125" width="150" height="50"/>
+                                        <rect key="frame" x="30" y="120" width="200" height="75"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="34"/>
                                         <state key="normal" title="Medium">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -196,11 +198,12 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ali-Ow-YkZ" userLabel="HardButton">
-                                        <rect key="frame" x="65" y="190" width="150" height="50"/>
+                                        <rect key="frame" x="30" y="210" width="200" height="75"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="ilz-ZW-OG3"/>
-                                            <constraint firstAttribute="width" constant="150" id="oMj-bL-j5w"/>
+                                            <constraint firstAttribute="height" constant="75" id="ilz-ZW-OG3"/>
+                                            <constraint firstAttribute="width" constant="200" id="oMj-bL-j5w"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="34"/>
                                         <state key="normal" title="Hard">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -209,7 +212,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwb-d5-t9K" userLabel="InsaneButton">
-                                        <rect key="frame" x="65" y="255" width="150" height="50"/>
+                                        <rect key="frame" x="30" y="300" width="200" height="75"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="34"/>
                                         <state key="normal" title="Insane">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -218,7 +222,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLE-DB-34V" userLabel="TrainingButton">
-                                        <rect key="frame" x="65" y="320" width="150" height="50"/>
+                                        <rect key="frame" x="30" y="390" width="200" height="75"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="34"/>
                                         <state key="normal" title="Training">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -230,10 +235,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="XLE-DB-34V" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="2Eq-66-F4d"/>
-                                    <constraint firstAttribute="trailing" secondItem="ali-Ow-YkZ" secondAttribute="trailing" constant="65" id="4Gz-Tk-tis"/>
+                                    <constraint firstAttribute="trailing" secondItem="ali-Ow-YkZ" secondAttribute="trailing" constant="30" id="4Gz-Tk-tis"/>
                                     <constraint firstItem="fwb-d5-t9K" firstAttribute="centerX" secondItem="ali-Ow-YkZ" secondAttribute="centerX" id="5TX-cT-Gob"/>
                                     <constraint firstItem="lhe-Xf-Qca" firstAttribute="centerX" secondItem="ali-Ow-YkZ" secondAttribute="centerX" id="7Jj-cV-Rk9"/>
-                                    <constraint firstItem="ali-Ow-YkZ" firstAttribute="leading" secondItem="tTW-TM-ZZh" secondAttribute="leading" constant="65" id="8a9-te-8dE"/>
+                                    <constraint firstItem="ali-Ow-YkZ" firstAttribute="leading" secondItem="tTW-TM-ZZh" secondAttribute="leading" constant="30" id="8a9-te-8dE"/>
                                     <constraint firstItem="fwb-d5-t9K" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="AII-B4-Eyf"/>
                                     <constraint firstItem="XLE-DB-34V" firstAttribute="centerX" secondItem="ali-Ow-YkZ" secondAttribute="centerX" id="Cxl-M1-QzM"/>
                                     <constraint firstItem="jme-x4-OpX" firstAttribute="top" secondItem="ali-Ow-YkZ" secondAttribute="bottom" constant="-50" id="J9V-lM-j3J"/>
@@ -248,11 +253,11 @@
                                     <constraint firstItem="ali-Ow-YkZ" firstAttribute="centerX" secondItem="tTW-TM-ZZh" secondAttribute="centerX" id="bUc-kd-Dv0"/>
                                     <constraint firstItem="jme-x4-OpX" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="gPV-fH-c5G"/>
                                     <constraint firstItem="lhe-Xf-Qca" firstAttribute="height" secondItem="ali-Ow-YkZ" secondAttribute="height" id="jle-tj-jJ8"/>
-                                    <constraint firstAttribute="bottom" secondItem="XLE-DB-34V" secondAttribute="bottom" constant="60" id="ldA-6P-CFo"/>
+                                    <constraint firstAttribute="bottom" secondItem="XLE-DB-34V" secondAttribute="bottom" constant="30" id="ldA-6P-CFo"/>
                                     <constraint firstItem="lhe-Xf-Qca" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="lkp-8b-8Q4"/>
                                     <constraint firstItem="jme-x4-OpX" firstAttribute="width" secondItem="ali-Ow-YkZ" secondAttribute="width" id="o4c-vB-AfC"/>
                                     <constraint firstItem="lhe-Xf-Qca" firstAttribute="top" secondItem="jme-x4-OpX" secondAttribute="bottom" constant="-50" id="tYP-mE-8TY"/>
-                                    <constraint firstItem="lhe-Xf-Qca" firstAttribute="top" secondItem="tTW-TM-ZZh" secondAttribute="top" constant="60" id="uBg-NO-zMp"/>
+                                    <constraint firstItem="lhe-Xf-Qca" firstAttribute="top" secondItem="tTW-TM-ZZh" secondAttribute="top" constant="30" id="uBg-NO-zMp"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">

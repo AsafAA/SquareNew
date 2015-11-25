@@ -16,6 +16,7 @@
 		E8FBC2531BF997E70047BC9D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8FBC2521BF997E70047BC9D /* iAd.framework */; };
 		E8FBC2551BF9A7B40047BC9D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FBC2541BF9A7B40047BC9D /* MenuViewController.swift */; };
 		E8FBC2971C02FA6C0047BC9D /* ColorLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FBC2961C02FA6C0047BC9D /* ColorLevels.swift */; };
+		E8FBC2991C056C050047BC9D /* PressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FBC2981C056C050047BC9D /* PressViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		E8FBC2521BF997E70047BC9D /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E8FBC2541BF9A7B40047BC9D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		E8FBC2961C02FA6C0047BC9D /* ColorLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorLevels.swift; path = ../ColorLevels.swift; sourceTree = "<group>"; };
+		E8FBC2981C056C050047BC9D /* PressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				E81063771BF1CEC1006B746B /* LaunchScreen.storyboard */,
 				E810637A1BF1CEC1006B746B /* Info.plist */,
 				E81063801BF46D65006B746B /* GameViewController.swift */,
+				E8FBC2981C056C050047BC9D /* PressViewController.swift */,
 			);
 			path = Square;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8FBC2991C056C050047BC9D /* PressViewController.swift in Sources */,
 				E81063711BF1CEC1006B746B /* GamePlayViewController.swift in Sources */,
 				E81063811BF46D65006B746B /* GameViewController.swift in Sources */,
 				E810636F1BF1CEC1006B746B /* AppDelegate.swift in Sources */,
