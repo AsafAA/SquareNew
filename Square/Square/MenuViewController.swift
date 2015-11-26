@@ -28,6 +28,7 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         drawButtons()
+        
     }
     
     override func viewWillAppear(animated: Bool) {

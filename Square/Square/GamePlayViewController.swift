@@ -35,6 +35,8 @@ class GamePlayViewController: UIViewController {
     let defaults = NSUserDefaults(suiteName: "group.io.asaf.square")!
     let colorLevels: ColorLevels = ColorLevels()
     var previouslyOverlapping: Bool = false
+    var lineShapes: [CAShapeLayer] = []
+    var lineFrames: [CGRect]  = []
 
     @IBOutlet var facebookButton: UIButton!
     @IBOutlet var menuButton: UIButton!
@@ -63,6 +65,9 @@ class GamePlayViewController: UIViewController {
         menuButton.layer.cornerRadius = 5
         replayButton.layer.cornerRadius = 5
         facebookButton.layer.cornerRadius = 5
+    
+        
+        
         
         startGame()
     }
@@ -114,23 +119,61 @@ class GamePlayViewController: UIViewController {
         })
     }
     
+//    func stopGame() {
+//        print("STOP GAME")
+//        dispatch_async(dispatch_get_main_queue(),{
+//            self.timer.invalidate()
+//        })
+//        
+//        square.removeFromSuperview()
+//
+//        for line in lines {
+//            line.removeFromSuperview()
+//        }
+//        
+//        lines.removeAll()
+//    }
+    
     func stopGame() {
-        print("STOP GAME")
+//        print("STOP GAME")
         dispatch_async(dispatch_get_main_queue(),{
             self.timer.invalidate()
         })
-        
+
         square.removeFromSuperview()
 
-        for line in lines {
-            line.removeFromSuperview()
+        for lineShape in lineShapes {
+            lineShape.removeFromSuperlayer()
         }
-        
-        lines.removeAll()
+
+        lineShapes.removeAll()
+        lineFrames.removeAll()
     }
     
+//    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+//        if let first = lineShapes.first {
+//            first.removeFromSuperlayer()
+//            lineShapes.removeFirst()
+//        }
+//        
+//        if let second = lineShapes.first {
+//            second.removeFromSuperlayer()
+//            lineShapes.removeFirst()
+//        }
+//        
+//        if let firstFrame = lineFrames.first {
+//            lineFrames.removeFirst()
+//        }
+//        
+//        if let secondFrame = lineFrames.first {
+//            lineFrames.removeFirst()
+//        }
+//        
+//    }
+
+    
     func initGapLine() {
-        print(lines.count)
+        print(lineShapes.count)
         let gapHeight = viewHeight * CGFloat(gapHeightMultiplier())
         
         initLine(CGFloat(Int(arc4random_uniform(UInt32(viewHeight - gapHeight * 1.5))) + Int(gapHeight * 0.75)), gapHeight: gapHeight)
@@ -156,23 +199,37 @@ class GamePlayViewController: UIViewController {
         }
     }
     
+//    func currentlyOverlapping() -> Bool {
+//        if !gameOverView.hidden {
+//            return false
+//        }
+//        for line in self.lines {
+//            if overlap(square, view2: line) {
+//                return true
+//            }
+//        }
+//        return false
+//    }
+    
     func currentlyOverlapping() -> Bool {
         if !gameOverView.hidden {
             return false
         }
-        for line in self.lines {
-            if overlap(square, view2: line) {
+        var lineIndex = 0
+        for lineShape in self.lineShapes {
+            if overlap(square, view2: lineShape, view2frame: lineFrames[lineIndex]) {
                 return true
             }
+            lineIndex += 1
         }
         return false
     }
-    
-    func overlap(view1: UIView, view2: UIView) -> Bool {
+
+    func overlap(view1: UIView, view2: CAShapeLayer, view2frame: CGRect) -> Bool {
         if let layer1 = view1.layer.presentationLayer() {
-            if let layer2 = view2.layer.presentationLayer() {
+            if let layer2 = view2.presentationLayer() {
                 let frame1 = layer1.frame
-                let frame2 = layer2.frame
+                let frame2 = CGRectMake(viewWidth + layer2.position.x, view2frame.minY, lineWidth, view2frame.height)
                 
                 return  !((frame1.maxX < frame2.minX) || (frame2.maxX < frame1.minX) )
             }
@@ -181,24 +238,62 @@ class GamePlayViewController: UIViewController {
         return false
     }
     
+//    func overlap(view1: UIView, view2: UIView) -> Bool {
+//        if let layer1 = view1.layer.presentationLayer() {
+//            if let layer2 = view2.layer.presentationLayer() {
+//                let frame1 = layer1.frame
+//                let frame2 = layer2.frame
+//                
+//                return  !((frame1.maxX < frame2.minX) || (frame2.maxX < frame1.minX) )
+//            }
+//        }
+//        
+//        return false
+//    }
+    
+//    func collision() -> Bool {
+//        if !gameOverView.hidden {
+//            return false
+//        }
+//        for line in self.lines {
+//            if collide(square, view2: line) {
+//                return true
+//            }
+//        }
+//        return false
+//    }
+    
     func collision() -> Bool {
         if !gameOverView.hidden {
             return false
         }
-        for line in self.lines {
-            if collide(square, view2: line) {
+        var lineIndex = 0
+        for lineShape in self.lineShapes {
+            
+            if collide(square, view2: lineShape, lineFrame: self.lineFrames[lineIndex]) {
                 return true
             }
+//            print("HEIGHT: " + String(lineHeights[lineIndex]))
+            lineIndex += 1
         }
         return false
     }
     
-    func collide(view1: UIView, view2: UIView) -> Bool {
+    func collide(view1: UIView, view2: CAShapeLayer, lineFrame: CGRect) -> Bool {
         
         if let layer1 = view1.layer.presentationLayer() {
-            if let layer2 = view2.layer.presentationLayer() {
+            if let layer2 = view2.presentationLayer() {
+                let positionX = layer2.position.x
+                let positionY = layer2.position.y
                 let frame1 = layer1.frame
-                let frame2 = layer2.frame
+                let frame2 = CGRectMake(viewWidth + positionX, lineFrame.minY, lineWidth, lineFrame.height)
+                
+//                print(frame2)
+                
+//                print("maxX " + String(frame2.maxX) + " minX " + String(frame2.minX))
+//                print("height" + String(frame2.height))
+//                print(layer2.position.x)
+//                print("Position Y: " + String(layer2.position.y))
                 
                 return  !((frame1.maxX < frame2.minX) || (frame2.maxX < frame1.minX) || (frame1.maxY < frame2.minY) || (frame2.maxY < frame1.minY))
             }
@@ -206,6 +301,20 @@ class GamePlayViewController: UIViewController {
         
         return false
     }
+    
+//    func collide(view1: UIView, view2: UIView) -> Bool {
+//        
+//        if let layer1 = view1.layer.presentationLayer() {
+//            if let layer2 = view2.layer.presentationLayer() {
+//                let frame1 = layer1.frame
+//                let frame2 = layer2.frame
+//                
+//                return  !((frame1.maxX < frame2.minX) || (frame2.maxX < frame1.minX) || (frame1.maxY < frame2.minY) || (frame2.maxY < frame1.minY))
+//            }
+//        }
+//        
+//        return false
+//    }
     
     //==============================
     // MARK: - Touch Callbacks
@@ -242,50 +351,179 @@ class GamePlayViewController: UIViewController {
         self.view.addSubview(square)
     }
     
+    func rectanglePathWithCenter(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) -> CGPath {
+        
+        let path = UIBezierPath()
+        path.moveToPoint(CGPointMake(x - width/2, y - height/2))
+        path.addLineToPoint(CGPointMake(x + width/2, y - height/2))
+        path.addLineToPoint(CGPointMake(x + width/2, y + height/2))
+        path.addLineToPoint(CGPointMake(x - width/2, y + height/2))
+        path.closePath()
+        
+        //path.bounds.maxX
+        return path.CGPath
+    }
+    
+    func rectanglePath(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) -> CGPath {
+        
+        let path = UIBezierPath()
+        path.moveToPoint(CGPointMake(x, y))
+        path.addLineToPoint(CGPointMake(x + width, y))
+        path.addLineToPoint(CGPointMake(x + width, y + height))
+        path.addLineToPoint(CGPointMake(x, y + height))
+        path.closePath()
+        
+        //path.bounds.maxX
+        return path.CGPath
+    }
+    
+    func rectangleCAShapeWithCenter(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) -> CAShapeLayer {
+        let lineShape = CAShapeLayer()
+        lineShape.opacity = 1
+        lineShape.lineWidth = 0
+        lineShape.strokeColor = UIColor.blackColor().CGColor
+        lineShape.lineJoin = kCALineJoinMiter
+        lineShape.strokeColor = getLineColor().CGColor
+        lineShape.fillColor = getLineColor().CGColor
+        lineShape.path = rectanglePathWithCenter(self.view.frame.width/2, y: self.view.frame.height/2, width: squareWidth, height: self.view.frame.height)
+        lineShape.zPosition = 0.9
+
+        return lineShape
+    }
+    
+    func rectangleCAShape(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) -> CAShapeLayer {
+        let lineShape = CAShapeLayer()
+        lineShape.opacity = 1
+        lineShape.lineWidth = 0
+        lineShape.strokeColor = UIColor.blackColor().CGColor
+        lineShape.lineJoin = kCALineJoinMiter
+        lineShape.strokeColor = getLineColor().CGColor
+        lineShape.fillColor = getLineColor().CGColor
+        lineShape.path = rectanglePath(x, y: y, width: width, height: height)
+        lineShape.zPosition = 0.9
+        
+        return lineShape
+    }
+    
     func initLine(gapY: CGFloat, gapHeight: CGFloat) {
         let lineTopHeight = gapY - gapHeight/2
         let lineBottomHeight = viewHeight - (gapY + gapHeight/2)
         
-        let lineTop = UIView(frame: CGRect(x: viewWidth, y: 0, width: lineWidth, height: lineTopHeight))
-        let lineBottom = UIView(frame: CGRect(x: viewWidth, y: gapY + gapHeight/2, width: lineWidth, height: lineBottomHeight ))
-        lineTop.backgroundColor = getLineColor()
-        lineBottom.backgroundColor = getLineColor()
-        self.view.addSubview(lineTop)
-        self.lines.append(lineTop)
-        self.view.addSubview(lineBottom)
-        self.lines.append(lineBottom)
+        let lineTop = rectangleCAShape(viewWidth, y: 0, width: lineWidth, height: lineTopHeight)
+        let lineBottom = rectangleCAShape(viewWidth, y: gapY + gapHeight/2, width: lineWidth, height: lineBottomHeight )
+//        lineTop.backgroundColor = getLineColor()
+//        lineBottom.backgroundColor = getLineColor()
+        self.view.layer.addSublayer(lineTop)
+        self.lineShapes.append(lineTop)
+        self.lineFrames.append(CGRectMake(viewWidth, 0, lineWidth, lineTopHeight))
+        self.view.layer.addSublayer(lineBottom)
+        self.lineShapes.append(lineBottom)
+        self.lineFrames.append(CGRectMake(viewWidth, gapY + gapHeight/2, lineWidth, lineBottomHeight))
         
         if lineNumber == 0 {
             self.view.backgroundColor = self.getBackgroundColor()
         } else if lineNumber % linesPerLevel == 0 {
             UIView.animateWithDuration(0.5, animations: {
                 self.updateColors()
-            }, completion: nil)
+                }, completion: nil)
         }
         
         self.lineNumber += 1
         
-        UIView.animateWithDuration(lineTime(), delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
-            lineTop.frame = CGRectMake(0 - self.lineWidth, 0, self.lineWidth, lineTopHeight)
-            lineBottom.frame = CGRectMake(0 - self.lineWidth, gapY + gapHeight/2, self.lineWidth, lineBottomHeight)
-            }, completion: { finished in
-                
-                
-                
-                lineTop.removeFromSuperview()
-                lineBottom.removeFromSuperview()
-                
-                // Lines may have been removed by stopGame()
-                if !self.lines.isEmpty {
-                    self.lines.removeFirst()
-                }
-                if !self.lines.isEmpty {
-                    self.lines.removeFirst()
-                }
-        })
+//        let lineTopPosition = lineTop.position
+//        let lineTopAnimation = CABasicAnimation(keyPath: "position")
+//        lineTopAnimation.fromValue = lineTop.valueForKey("position")
+//        lineTopAnimation.toValue = NSValue(CGPoint: CGPointMake(lineTopPosition.x - viewWidth - squareWidth, lineTopPosition.y))
+//        lineTopAnimation.duration = lineTime()
+//        lineTop.addAnimation(lineTopAnimation, forKey: "position")
+//        lineTop.position = CGPointMake(0,0)
         
-      
+//        let lineTopPosition = lineTop.position
+        let lineTopAnimation = CABasicAnimation(keyPath: "path")
+        lineTopAnimation.fromValue = lineTop.valueForKey("path")
+        lineTopAnimation.toValue = rectanglePath(-1*squareWidth, y: 0, width: lineWidth, height: lineTopHeight)
+        lineTopAnimation.duration = lineTime()
+        lineTop.addAnimation(lineTopAnimation, forKey: "path")
+        lineTop.path = rectanglePath(-1*squareWidth, y: 0, width: lineWidth, height: viewHeight)
+        
+        let lineBottomPosition = lineBottom.position
+        let lineBottomAnimation = CABasicAnimation(keyPath: "position")
+        lineBottomAnimation.fromValue = lineBottom.valueForKey("position")
+        lineBottomAnimation.toValue = NSValue(CGPoint: CGPointMake(lineBottomPosition.x - viewWidth - squareWidth, lineBottomPosition.y))
+        lineBottomAnimation.duration = lineTime()
+        lineBottom.addAnimation(lineBottomAnimation, forKey: "position")
+        lineBottom.position = CGPointMake(0,0)
+        
+        
+//        UIView.animateWithDuration(lineTime(), delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+////            lineTop.path = self.rectanglePath(0 - self.lineWidth, y: 0, width: self.lineWidth, height: lineTopHeight)
+////            lineBottom.path = self.rectanglePath(0 - self.lineWidth, y: gapY + gapHeight/2, width: self.lineWidth, height: lineBottomHeight)
+//            lineTop.position = CGPointMake(0, 0)
+//            lineTop.position = CGPointMake(0, 0)
+//            }, completion: { finished in
+//                
+//                //TODO THIS IS IT? lineTop.presentationLayer()?.bounds
+//                
+//                lineTop.removeFromSuperlayer()
+//                lineBottom.removeFromSuperlayer()
+//                
+//                // Lines may have been removed by stopGame()
+//                if !self.lineShapes.isEmpty {
+//                    self.lineShapes.removeFirst()
+//                }
+//                if !self.lineShapes.isEmpty {
+//                    self.lineShapes.removeFirst()
+//                }
+//        })
+        
+        
     }
+
+    
+//    func initLine(gapY: CGFloat, gapHeight: CGFloat) {
+//        let lineTopHeight = gapY - gapHeight/2
+//        let lineBottomHeight = viewHeight - (gapY + gapHeight/2)
+//        
+//        let lineTop = UIView(frame: CGRect(x: viewWidth, y: 0, width: lineWidth, height: lineTopHeight))
+//        let lineBottom = UIView(frame: CGRect(x: viewWidth, y: gapY + gapHeight/2, width: lineWidth, height: lineBottomHeight ))
+//        lineTop.backgroundColor = getLineColor()
+//        lineBottom.backgroundColor = getLineColor()
+//        self.view.addSubview(lineTop)
+//        self.lines.append(lineTop)
+//        self.view.addSubview(lineBottom)
+//        self.lines.append(lineBottom)
+//        
+//        if lineNumber == 0 {
+//            self.view.backgroundColor = self.getBackgroundColor()
+//        } else if lineNumber % linesPerLevel == 0 {
+//            UIView.animateWithDuration(0.5, animations: {
+//                self.updateColors()
+//            }, completion: nil)
+//        }
+//        
+//        self.lineNumber += 1
+//        
+//        UIView.animateWithDuration(lineTime(), delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+//            lineTop.frame = CGRectMake(0 - self.lineWidth, 0, self.lineWidth, lineTopHeight)
+//            lineBottom.frame = CGRectMake(0 - self.lineWidth, gapY + gapHeight/2, self.lineWidth, lineBottomHeight)
+//            }, completion: { finished in
+//                
+//                
+//                
+//                lineTop.removeFromSuperview()
+//                lineBottom.removeFromSuperview()
+//                
+//                // Lines may have been removed by stopGame()
+//                if !self.lines.isEmpty {
+//                    self.lines.removeFirst()
+//                }
+//                if !self.lines.isEmpty {
+//                    self.lines.removeFirst()
+//                }
+//        })
+//        
+//      
+//    }
     
     //==============================
     // MARK: - Levels
