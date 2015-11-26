@@ -60,13 +60,14 @@ class MenuViewController: UIViewController {
     
     func addLine() {
         initLine(0, y: self.view.frame.height)
-        print(lines.count)
+//        print(lines.count)
     }
     
     func initLine(x: CGFloat, y:CGFloat) {
         let width = self.view.frame.height / 30
         let height = self.view.frame.height
         let line = UIView(frame: CGRectMake(0, 0, width, height * 1.5))
+        line.userInteractionEnabled = false
         line.center = CGPointMake(x, y)
         line.backgroundColor = getLineColor(colorIndex)
         line.transform = CGAffineTransformMakeRotation(-1 * CGFloat(M_PI) / 6)

@@ -255,6 +255,9 @@ class GamePlayViewController: UIViewController {
         self.view.addSubview(lineBottom)
         self.lines.append(lineBottom)
         
+        lineTop.userInteractionEnabled = false
+        lineBottom.userInteractionEnabled = false
+        
         if lineNumber == 0 {
             self.view.backgroundColor = self.getBackgroundColor()
         } else if lineNumber % linesPerLevel == 0 {

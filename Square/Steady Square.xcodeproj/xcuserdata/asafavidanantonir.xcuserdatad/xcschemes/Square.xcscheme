@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E810636A1BF1CEC1006B746B"
-               BuildableName = "SteadySquare.app"
+               BuildableName = "Steady Square.app"
                BlueprintName = "Steady Square"
                ReferencedContainer = "container:Steady Square.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E810636A1BF1CEC1006B746B"
-            BuildableName = "SteadySquare.app"
+            BuildableName = "Steady Square.app"
             BlueprintName = "Steady Square"
             ReferencedContainer = "container:Steady Square.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E810636A1BF1CEC1006B746B"
-            BuildableName = "SteadySquare.app"
+            BuildableName = "Steady Square.app"
             BlueprintName = "Steady Square"
             ReferencedContainer = "container:Steady Square.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E810636A1BF1CEC1006B746B"
-            BuildableName = "SteadySquare.app"
+            BuildableName = "Steady Square.app"
             BlueprintName = "Steady Square"
             ReferencedContainer = "container:Steady Square.xcodeproj">
          </BuildableReference>
