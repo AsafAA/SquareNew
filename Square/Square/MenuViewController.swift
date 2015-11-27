@@ -36,32 +36,10 @@ class MenuViewController: UIViewController {
         drawButtons()
     }
     
-    func handleForeground() {
-        drawBackground()
-    }
-    
-    func handleBackground() {
-        removeLines()
-    }
-    
-    func removeLines() {
-        for line in lines {
-            line.removeFromSuperview()
-        }
-        lines.removeAll()
-        dispatch_async(dispatch_get_main_queue(),{
-            self.timer.invalidate()
-        })
-    }
-    
     override func viewWillAppear(animated: Bool) {
         randomLevelIndex = Int(arc4random_uniform(UInt32(LEVELS.count)))
         drawButtons()
         drawBackground()
-        
-//        dispatch_async(dispatch_get_main_queue(),{
-//            self.timer = NSTimer.scheduledTimerWithTimeInterval(8.0/10.0, target: self, selector: "addLine", userInfo: nil, repeats: true)
-//        })
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -70,14 +48,36 @@ class MenuViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         removeLines()
-        
         let gamePlayViewController = (segue.destinationViewController as! GamePlayViewController)
         gamePlayViewController.gameMode = segue.identifier
     }
     
-    func addLine() {
-        initLine(0, y: self.view.frame.height)
-//        print(lines.count)
+    func handleForeground() {
+        drawBackground()
+    }
+    
+    func handleBackground() {
+        removeLines()
+    }
+    
+    func drawBackground() {
+        removeLines()
+        self.view.backgroundColor = getBackgroundColor()
+        let width = self.view.frame.width
+        let height = self.view.frame.height
+        var x = CGFloat(width)
+        var y = CGFloat(0)
+        colorIndex = 0
+        
+        while x >= 0 || y < height {
+            initLine(x, y: y)
+            x -= width/10
+            y += height/10
+        }
+        
+        dispatch_async(dispatch_get_main_queue(),{
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(8.0/10.0, target: self, selector: "addLine", userInfo: nil, repeats: true)
+        })
     }
     
     func initLine(x: CGFloat, y:CGFloat) {
@@ -101,50 +101,37 @@ class MenuViewController: UIViewController {
                     self.lines.removeFirst()
                 }
         })
-
-
     }
     
-    func diagonalLength() -> CGFloat {
-        let width = self.view.frame.width
-        let height = self.view.frame.height
-        return sqrt(pow(width, 2.0) + pow(height, 2.0))
+    func addLine() {
+        initLine(0, y: self.view.frame.height)
     }
     
-    func moveLines() {
-        let width = self.view.frame.height / 30
-        
+    func removeLines() {
         for line in lines {
-            line.center = CGPointMake(line.center.x + 1, line.center.y - 1)
-            
-            if let lastLine = lines.last {
-                if let firstLine = lines.first {
-                    if lastLine.center.x > self.view.frame.width && lastLine.center.y < -0.5 * self.view.frame.height {
-                        colorIndex += 1
-                        lines.removeLast()
-                        lines.insert(lastLine, atIndex: 0)
-                        lastLine.center = CGPointMake(firstLine.center.x - 2.1 * width, firstLine.center.y + 2.1 * width)
-                        lastLine.backgroundColor = getLineColor(colorIndex)
-                    }
-                }
-            }
-            
+            line.removeFromSuperview()
         }
+        lines.removeAll()
+        dispatch_async(dispatch_get_main_queue(),{
+            self.timer.invalidate()
+        })
     }
     
     func drawButtons() {
         buttonView.layer.zPosition = 1
         buttonView.layer.cornerRadius = 5
         buttonView.backgroundColor = UIColor.clearColor()
+        
         easyButton.backgroundColor = getButtonColor(1)
-        easyButton.layer.zPosition = 1
         mediumButton.backgroundColor = getButtonColor(2)
-        mediumButton.layer.zPosition = 1
         hardButton.backgroundColor = getButtonColor(3)
-        hardButton.layer.zPosition = 1
         insaneButton.backgroundColor = getButtonColor(2)
-        insaneButton.layer.zPosition = 1
         trainingButton.backgroundColor = getButtonColor(1)
+        
+        easyButton.layer.zPosition = 1
+        mediumButton.layer.zPosition = 1
+        hardButton.layer.zPosition = 1
+        insaneButton.layer.zPosition = 1
         trainingButton.layer.zPosition = 1
         
         easyButton.layer.cornerRadius = 5
@@ -152,30 +139,6 @@ class MenuViewController: UIViewController {
         hardButton.layer.cornerRadius = 5
         insaneButton.layer.cornerRadius = 5
         trainingButton.layer.cornerRadius = 5
-    }
-    
-    func drawBackground() {
-        removeLines()
-        
-        self.view.backgroundColor = getBackgroundColor()
-        
-        let width = self.view.frame.width
-        let height = self.view.frame.height
-        var x = CGFloat(width)
-        var y = CGFloat(0)
-        colorIndex = 0
-        while x >= 0 || y < height {
-            
-            initLine(x, y: y)
-            x -= width/10
-            y += height/10
-        }
-        
-        dispatch_async(dispatch_get_main_queue(),{
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(8.0/10.0, target: self, selector: "addLine", userInfo: nil, repeats: true)
-        })
-        
-//        print(lines.count)
     }
     
     func getBackgroundColor() -> UIColor {
@@ -192,5 +155,11 @@ class MenuViewController: UIViewController {
         let colors = LEVELS[randomLevelIndex]["line_colors"]
         let backgroundColorHex = colors![lineNumber % (colors?.count)!]
         return colorLevels.colorWithHexString(backgroundColorHex as! String)
+    }
+    
+    func diagonalLength() -> CGFloat {
+        let width = self.view.frame.width
+        let height = self.view.frame.height
+        return sqrt(pow(width, 2.0) + pow(height, 2.0))
     }
 }
