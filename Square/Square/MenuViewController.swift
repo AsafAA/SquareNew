@@ -27,7 +27,31 @@ class MenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"handleForeground", name:
+            UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"handleBackground", name:
+            UIApplicationDidEnterBackgroundNotification, object: nil)
+        
         drawButtons()
+    }
+    
+    func handleForeground() {
+        drawBackground()
+    }
+    
+    func handleBackground() {
+        removeLines()
+    }
+    
+    func removeLines() {
+        for line in lines {
+            line.removeFromSuperview()
+        }
+        lines.removeAll()
+        dispatch_async(dispatch_get_main_queue(),{
+            self.timer.invalidate()
+        })
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -35,9 +59,9 @@ class MenuViewController: UIViewController {
         drawButtons()
         drawBackground()
         
-        dispatch_async(dispatch_get_main_queue(),{
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(8.0/10.0, target: self, selector: "addLine", userInfo: nil, repeats: true)
-        })
+//        dispatch_async(dispatch_get_main_queue(),{
+//            self.timer = NSTimer.scheduledTimerWithTimeInterval(8.0/10.0, target: self, selector: "addLine", userInfo: nil, repeats: true)
+//        })
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -45,14 +69,7 @@ class MenuViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        dispatch_async(dispatch_get_main_queue(),{
-            self.timer.invalidate()
-        })
-        
-        for line in lines {
-            line.removeFromSuperview()
-        }
-        lines.removeAll()
+        removeLines()
         
         let gamePlayViewController = (segue.destinationViewController as! GamePlayViewController)
         gamePlayViewController.gameMode = segue.identifier
@@ -152,7 +169,11 @@ class MenuViewController: UIViewController {
             y += height/10
         }
         
-        print(lines.count)
+        dispatch_async(dispatch_get_main_queue(),{
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(8.0/10.0, target: self, selector: "addLine", userInfo: nil, repeats: true)
+        })
+        
+//        print(lines.count)
     }
     
     func getBackgroundColor() -> UIColor {
