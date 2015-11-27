@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreMotion
 
 class GamePlayViewController: UIViewController {
     
@@ -35,6 +36,8 @@ class GamePlayViewController: UIViewController {
     let defaults = NSUserDefaults(suiteName: "group.io.asaf.square")!
     let colorLevels: ColorLevels = ColorLevels()
     var previouslyOverlapping: Bool = false
+    let motionManager = CMMotionManager()
+    var motionMode: String = ""
 
     @IBOutlet var facebookButton: UIButton!
     @IBOutlet var menuButton: UIButton!
@@ -65,12 +68,89 @@ class GamePlayViewController: UIViewController {
         facebookButton.layer.cornerRadius = 5
         
         startGame()
+        
+        
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        chooseSquareMotion()
+    }
+    
+    func getTrainingScoreForAttitude(attitude: Double) -> String {
+        
+        let maxAttitude = Double(15)
+        if attitude < -1 * maxAttitude {
+            return "1000"
+        } else if attitude > maxAttitude {
+            return "0"
+        } else {
+            return String(Int(round(500 - CGFloat((attitude/maxAttitude)) * 500)))
+        }
+    }
+    
+    func getSquareCenterHeightForAttitude(attitude: Double) -> CGFloat {
+        let maxAttitude = Double(15)
+        if attitude < -1 * maxAttitude {
+            return minY
+        } else if attitude > maxAttitude {
+            return maxY
+        } else {
+            return viewHeight/2 + CGFloat((attitude/maxAttitude)) * (viewHeight/2)
+        }
     }
     
     //==============================
     // MARK: - Game States
     
+    func chooseSquareMotion() {
+        if self.traitCollection.forceTouchCapability == .Available {
+            // don't use motion detection
+            print("Force touch is available")
+            self.motionMode = "force"
+        } else if motionManager.deviceMotionAvailable {
+            self.motionMode = "accelerometer"
+            startMotionDetection()
+        }
+        else {
+            //            print("Device motion unavailable");
+        }
+
+    }
+    
+    func startMotionDetection() {
+        
+        motionManager.deviceMotionUpdateInterval = 0.01;
+        
+        let queue = NSOperationQueue()
+        motionManager.startDeviceMotionUpdatesToQueue(queue, withHandler: { [weak self] (motion, error) -> Void in
+            
+            // Get the attitude of the device
+            if let attitude = motion?.attitude {
+                // Get the pitch (in radians) and convert to degrees.
+                // Import Darwin to get M_PI in Swift
+                //                    print(attitude.pitch * 180.0/M_PI)
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self!.square.center = CGPointMake(self!.squareX, self!.getSquareCenterHeightForAttitude(attitude.pitch * 180.0/M_PI))
+                    
+                    if self!.gameMode == "training" {
+                        self!.scoreLabel.text = self!.getTrainingScoreForAttitude(attitude.pitch * 180.0/M_PI)
+                    }
+                    
+                }
+            }
+            
+            })
+        
+        //            print("Device motion started")
+    }
+    
     func startGame() {
+        if self.motionMode == "accelerometer" {
+            startMotionDetection()
+        }
+        
         randomLevelOffset = Int(arc4random_uniform(UInt32(LEVELS.count)))
         updateColors()
         gameOverView.hidden = true
@@ -82,9 +162,16 @@ class GamePlayViewController: UIViewController {
         finalScore = 0
         initSquare()
         startGameLoop()
+        
     }
     
     func presentGameOverView() {
+        if traitCollection.forceTouchCapability == .Available {
+            // don't use motion detection
+            print("THIS SHIT IS AVAILABLE")
+        }
+        self.motionManager.stopDeviceMotionUpdates()
+        
         finalScore = linesPassed
         var bestScore = 0
         defaults.synchronize()
@@ -119,6 +206,8 @@ class GamePlayViewController: UIViewController {
         dispatch_async(dispatch_get_main_queue(),{
             self.timer.invalidate()
         })
+        
+        
         
         square.removeFromSuperview()
 
@@ -216,7 +305,7 @@ class GamePlayViewController: UIViewController {
             square.center = CGPointMake(squareX, maxY - ratio*(maxY - minY))
             
             if gameMode == "training" {
-                scoreLabel.text = String(Int(round(ratio*385)))
+                scoreLabel.text = String(Int(round(ratio*1000)))
             }
         }
     }
@@ -364,6 +453,7 @@ class GamePlayViewController: UIViewController {
         dispatch_async(dispatch_get_main_queue(),{
             self.timer.invalidate()
         })
+        motionManager.stopDeviceMotionUpdates()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
