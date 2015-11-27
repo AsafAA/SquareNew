@@ -155,6 +155,8 @@ class MenuViewController: UIViewController {
     }
     
     func drawBackground() {
+        removeLines()
+        
         self.view.backgroundColor = getBackgroundColor()
         
         let width = self.view.frame.width
