@@ -125,7 +125,7 @@ class MenuViewController: UIViewController {
         easyButton.backgroundColor = getButtonColor(1)
         mediumButton.backgroundColor = getButtonColor(2)
         hardButton.backgroundColor = getButtonColor(3)
-        insaneButton.backgroundColor = getButtonColor(2)
+        insaneButton.backgroundColor = getButtonColor(4)
         trainingButton.backgroundColor = getButtonColor(1)
         
         easyButton.layer.zPosition = 1

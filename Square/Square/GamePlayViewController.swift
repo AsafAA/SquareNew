@@ -106,7 +106,7 @@ class GamePlayViewController: UIViewController {
     func chooseSquareMotion() {
         if self.traitCollection.forceTouchCapability == .Available {
             // don't use motion detection
-            print("Force touch is available")
+//            print("Force touch is available")
             self.motionMode = "force"
         } else if motionManager.deviceMotionAvailable {
             self.motionMode = "accelerometer"
@@ -152,6 +152,7 @@ class GamePlayViewController: UIViewController {
         }
         
         randomLevelOffset = Int(arc4random_uniform(UInt32(LEVELS.count)))
+        initSquare()
         updateColors()
         gameOverView.hidden = true
         tick = 0
@@ -160,7 +161,7 @@ class GamePlayViewController: UIViewController {
         scoreLabel.text = String("0")
         scoreLabel.hidden = false
         finalScore = 0
-        initSquare()
+        
         startGameLoop()
         
     }
@@ -168,7 +169,7 @@ class GamePlayViewController: UIViewController {
     func presentGameOverView() {
         if traitCollection.forceTouchCapability == .Available {
             // don't use motion detection
-            print("THIS SHIT IS AVAILABLE")
+//            print("THIS SHIT IS AVAILABLE")
         }
         self.motionManager.stopDeviceMotionUpdates()
         
@@ -202,7 +203,7 @@ class GamePlayViewController: UIViewController {
     }
     
     func stopGame() {
-        print("STOP GAME")
+//        print("STOP GAME")
         dispatch_async(dispatch_get_main_queue(),{
             self.timer.invalidate()
         })
@@ -219,7 +220,7 @@ class GamePlayViewController: UIViewController {
     }
     
     func initGapLine() {
-        print(lines.count)
+//        print(lines.count)
         let gapHeight = viewHeight * CGFloat(gapHeightMultiplier())
         
         initLine(CGFloat(Int(arc4random_uniform(UInt32(viewHeight - gapHeight * 1.5))) + Int(gapHeight * 0.75)), gapHeight: gapHeight)
@@ -325,7 +326,7 @@ class GamePlayViewController: UIViewController {
     
     func initSquare() {
         square = UIView(frame: CGRect(x: 0, y: 0, width: squareWidth, height: squareWidth))
-        square.backgroundColor = UIColor.blackColor()
+        square.backgroundColor = getSquareColor()
         square.center = CGPointMake(squareX, maxY)
         square.layer.zPosition = 1
         self.view.addSubview(square)
@@ -400,6 +401,8 @@ class GamePlayViewController: UIViewController {
         self.replayButton.backgroundColor = self.getReplayButtonBackgroundColor()
         self.menuButton.backgroundColor = self.getMenuButtonBackgroundColor()
         self.facebookButton.backgroundColor = self.getFacebookButtonBackgroundColor()
+        self.square.backgroundColor = getSquareColor()
+        self.scoreLabel.textColor = getSquareColor()
     }
     
     let MODES = [
@@ -509,6 +512,19 @@ class GamePlayViewController: UIViewController {
         let levelIndex = levelNumber % LEVELS.count
         let backgroundColorHex = LEVELS[levelIndex]["button3_color"]
         return colorLevels.colorWithHexString(backgroundColorHex as! String)
+    }
+    
+    func getSquareColor() -> UIColor {
+        let levelNumber = self.lineNumber / linesPerLevel + randomLevelOffset
+        let levelIndex = levelNumber % LEVELS.count
+        let level = LEVELS[levelIndex]
+        if let backgroundColorHex = level["square_color"] {
+            return colorLevels.colorWithHexString(backgroundColorHex as! String)
+        } else {
+            return UIColor.blackColor()
+        }
+        
+        
     }
     
     }
