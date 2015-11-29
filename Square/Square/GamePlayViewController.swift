@@ -403,6 +403,9 @@ class GamePlayViewController: UIViewController {
 //        self.facebookButton.backgroundColor = self.getFacebookButtonBackgroundColor()
         self.square.backgroundColor = getSquareColor()
         self.scoreLabel.textColor = getSquareColor()
+        if self.gameMode == "training" {
+            self.setExitButtonImage()
+        }
     }
     
     let MODES = [
@@ -518,13 +521,24 @@ class GamePlayViewController: UIViewController {
         let levelNumber = self.lineNumber / linesPerLevel + randomLevelOffset
         let levelIndex = levelNumber % LEVELS.count
         let level = LEVELS[levelIndex]
-        if let backgroundColorHex = level["square_color"] {
-            return colorLevels.colorWithHexString(backgroundColorHex as! String)
+        if let _ = level["white"] {
+            return UIColor.whiteColor()
         } else {
             return UIColor.blackColor()
         }
-        
-        
+    }
+    
+    func setExitButtonImage() {
+        var image = UIImage()
+        let levelNumber = self.lineNumber / linesPerLevel + randomLevelOffset
+        let levelIndex = levelNumber % LEVELS.count
+        let level = LEVELS[levelIndex]
+        if let _ = level["white"] {
+            image = UIImage(named: "ExitButtonWhite")!
+        } else {
+            image = UIImage(named: "ExitButton")!
+        }
+        self.exitButton.setImage(image, forState: .Normal)
     }
     
     }
