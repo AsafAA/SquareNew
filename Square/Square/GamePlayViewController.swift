@@ -174,12 +174,8 @@ class GamePlayViewController: UIViewController {
         self.motionManager.stopDeviceMotionUpdates()
         
         finalScore = linesPassed
-        var bestScore = 0
+        var bestScore = defaults.integerForKey(bestScoreKey())
         defaults.synchronize()
-        
-        if let score = defaults.integerForKey(bestScoreKey()) as? Int {
-            bestScore = score
-        }
         
         if finalScore > bestScore {
             bestScore = finalScore

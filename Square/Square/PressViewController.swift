@@ -15,7 +15,7 @@ class PressViewController: UIViewController {
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if let touch = touches.first where traitCollection.forceTouchCapability == .Available {
+        if let _ = touches.first where traitCollection.forceTouchCapability == .Available {
 //            let ratio = touch.force/touch.maximumPossibleForce
 //            square.center = CGPointMake(squareX, maxY - ratio*(maxY - minY))
 //            
