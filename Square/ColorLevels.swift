@@ -84,9 +84,9 @@ let LEVELS = [
     [
         "background_color": "8ED2C9",
         "game_over_background_color": "FFB85F",
-        "button1_color": "462066",
+        "button1_color": "FF7A5A",
         "button2_color": "00AAA0",
-        "button3_color": "FF7A5A",
+        "button3_color": "462066",
         "button4_color": "FFB85F",
         "line_colors": [
             "FF7A5A",
@@ -99,9 +99,9 @@ let LEVELS = [
         "background_color": "9FBF8C",
         "game_over_background_color": "FFFFFF",
         "button1_color": "FFB85F",
-        "button2_color": "787A40",
-        "button3_color": "F69A98",
-        "button4_color": "787A40",
+        "button2_color": "F69A98",
+        "button3_color": "787A40",
+        "button4_color": "F69A98",
         "line_colors": [
             "FFB85F",
             "787A40",
@@ -111,11 +111,11 @@ let LEVELS = [
     ],
     [
         "background_color": "473E3F",
-        "game_over_background_color": "F9E559",
+        "game_over_background_color": "F9E559", //*
         "button1_color": "218C8D",
-        "button2_color": "8EDC9D",
-        "button3_color": "EF7126",
-        "button4_color": "8EDC9D",
+        "button2_color": "EF7126",
+        "button3_color": "8EDC9D",
+        "button4_color": "EF7126",
         "line_colors": [
             "218C8D",
             "8EDC9D",
@@ -126,10 +126,10 @@ let LEVELS = [
     ],
     [
         "background_color": "DDDDDD",
-        "game_over_background_color": "80CEB9",
+        "game_over_background_color": "80CEB9", //*
         "button1_color": "2F343A",
-        "button2_color": "BDB69C",
-        "button3_color": "41AAC4",
+        "button2_color": "41AAC4",
+        "button3_color": "BDB69C",
         "button4_color": "80CEB9",
         "line_colors": [
             "2F343A",
@@ -140,10 +140,10 @@ let LEVELS = [
     ],
     [
         "background_color": "EECD86",
-        "game_over_background_color": "E18942",
+        "game_over_background_color": "E18942", //*
         "button1_color": "7A3E48",
-        "button2_color": "B95835",
-        "button3_color": "3D3242",
+        "button2_color": "3D3242",
+        "button3_color": "B95835",
         "button4_color": "E18942",
         "line_colors": [
             "7A3E48",
@@ -152,27 +152,27 @@ let LEVELS = [
             "E18942"
         ]
     ],
-    [
-        "background_color": "FFE9E8",
-        "game_over_background_color": "E47297",
-        "button1_color": "9C1C6B",
-        "button2_color": "AA0114",
-        "button3_color": "000000",
-        "button4_color": "E47297",
-        "line_colors": [
-            "9C1C6B",
-            "AA0114",
-            "000000",
-            "E47297"
-        ]
-    ],
+//    [
+//        "background_color": "FFE9E8",
+//        "game_over_background_color": "E47297",
+//        "button1_color": "9C1C6B",
+//        "button2_color": "AA0114",
+//        "button3_color": "000000",
+//        "button4_color": "E47297",
+//        "line_colors": [
+//            "9C1C6B",
+//            "AA0114",
+//            "000000",
+//            "E47297"
+//        ]
+//    ],
     [
         "background_color": "21B6A8",
-        "game_over_background_color": "177F75",
+        "game_over_background_color": "B67721", //*
         "button1_color": "7F171F",
-        "button2_color": "B67721",
+        "button2_color": "177F75",
         "button3_color": "7F5417",
-        "button4_color": "177F75",
+        "button4_color": "B67721",
         "line_colors": [
             "7F171F",
             "B67721",
@@ -182,10 +182,10 @@ let LEVELS = [
     ],
     [
         "background_color": "685642",
-        "game_over_background_color": "F4F0CB",
-        "button1_color": "DED29E",
+        "game_over_background_color": "F4F0CB", //*
+        "button1_color": "B3A580",
         "button2_color": "B7C68B",
-        "button3_color": "B3A580",
+        "button3_color": "DED29E",
         "button4_color": "B7C68B",
         "line_colors": [
             "F4F0CB",
@@ -196,7 +196,7 @@ let LEVELS = [
     ],
     [
         "background_color": "F8E4CC",
-        "game_over_background_color": "8FBCDB",
+        "game_over_background_color": "8FBCDB", //*
         "button1_color": "447294",
         "button2_color": "294052",
         "button3_color": "153450",
@@ -210,7 +210,7 @@ let LEVELS = [
     ],
     [
         "background_color": "192823",
-        "game_over_background_color": "EBB035",
+        "game_over_background_color": "EBB035", //*
         "button1_color": "218559",
         "button2_color": "06A2CB",
         "button3_color": "DD1E2F",
@@ -223,20 +223,20 @@ let LEVELS = [
         ],
         "square_color": "FFFFFF"
     ],
-//    [
-//        "background_color": "FFCBF4",
-//        "game_over_background_color": "21B6A8",
-//        "button1_color": "B69521",
-//        "button2_color": "7F1769",
-//        "button3_color": "177F75",
-//        "button4_color": "21B6A8",
-//        "line_colors": [
-//            "B69521",
-//            "7F1769",
-//            "177F75",
-//            "21B6A8"
-//        ]
-//    ]
+    [
+        "background_color": "FFCBF4",
+        "game_over_background_color": "21B6A8", //*
+        "button1_color": "B69521",
+        "button2_color": "7F1769",
+        "button3_color": "177F75",
+        "button4_color": "21B6A8",
+        "line_colors": [
+            "B69521",
+            "7F1769",
+            "177F75",
+            "21B6A8"
+        ]
+    ]
 ]
 
 

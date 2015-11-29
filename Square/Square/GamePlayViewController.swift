@@ -39,7 +39,7 @@ class GamePlayViewController: UIViewController {
     let motionManager = CMMotionManager()
     var motionMode: String = ""
 
-    @IBOutlet var facebookButton: UIButton!
+//    @IBOutlet var facebookButton: UIButton!
     @IBOutlet var menuButton: UIButton!
     @IBOutlet var replayButton: UIButton!
     @IBOutlet var gameOverView: UIView!
@@ -65,7 +65,7 @@ class GamePlayViewController: UIViewController {
         
         menuButton.layer.cornerRadius = 5
         replayButton.layer.cornerRadius = 5
-        facebookButton.layer.cornerRadius = 5
+//        facebookButton.layer.cornerRadius = 5
         
         startGame()
         
@@ -400,7 +400,7 @@ class GamePlayViewController: UIViewController {
         self.gameOverView.backgroundColor = self.getGameOverViewBackground()
         self.replayButton.backgroundColor = self.getReplayButtonBackgroundColor()
         self.menuButton.backgroundColor = self.getMenuButtonBackgroundColor()
-        self.facebookButton.backgroundColor = self.getFacebookButtonBackgroundColor()
+//        self.facebookButton.backgroundColor = self.getFacebookButtonBackgroundColor()
         self.square.backgroundColor = getSquareColor()
         self.scoreLabel.textColor = getSquareColor()
     }
